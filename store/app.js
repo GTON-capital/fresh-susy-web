@@ -1,6 +1,6 @@
 export const state = () => ({
   menu: {
-    open: false,
+    open: true,
     navigation: [
       {
         route: 'logs',

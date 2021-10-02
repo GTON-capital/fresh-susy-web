@@ -1,6 +1,7 @@
 <template>
   <div class="min-h-screen font-sans bg-body relative flex flex-col text-maastricht-blue">
     <vue-header />
+    <mobile-menu />
 
     <main class="flex-grow relative z-[1]">
       <div class="w-full h-full z-[-1] absolute left-0 top-0">

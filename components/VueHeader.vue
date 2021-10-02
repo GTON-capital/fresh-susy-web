@@ -5,7 +5,7 @@
         <nuxt-link to="/" class="text-[46px] sm:text-[66px]">
           <img src="~/assets/img/logo.svg" class="w-[1em] h-[1em]" alt="Susy" width="66" height="66">
         </nuxt-link>
-        <button type="button" class="bg-transparent border-none text-magenta hover:text-maastricht-blue" @click="toggleMenu">
+        <button type="button" class="bg-transparent border-none text-magenta hover:text-maastricht-blue sm:hidden -my-4" @click="toggleMenu">
           <icon name="mono/menu" class="text-[52px] fill-current stroke-current" />
         </button>
       </div>

@@ -11,6 +11,16 @@ export const state = () => ({
         label: 'Transfer',
       },
     ],
+    partners: [
+      {
+        href: '/',
+        label: 'Graviton',
+      },
+      {
+        href: '/',
+        label: 'Gravity',
+      },
+    ],
     socials: [
       {
         href: '/',

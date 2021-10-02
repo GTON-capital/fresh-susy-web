@@ -1,10 +1,13 @@
 <template>
   <header class="flex-shrink-0 py-4 xl:py-[40px]">
     <div class="container block sm:flex flex-row items-center">
-      <div class="lg:w-[150px]">
+      <div class="lg:w-[150px] flex sm:block justify-between">
         <nuxt-link to="/" class="text-[46px] sm:text-[66px]">
           <img src="~/assets/img/logo.svg" class="w-[1em] h-[1em]" alt="Susy" width="66" height="66">
         </nuxt-link>
+        <button type="button" class="bg-transparent border-none text-magenta hover:text-maastricht-blue" @click="toggleMenu">
+          <icon name="mono/menu" class="text-[52px] fill-current stroke-current" />
+        </button>
       </div>
 
       <div class="font-heading font-light sm:text-center text-[44px] leading-none flex-grow mx-auto">
@@ -34,7 +37,13 @@ import Vue from 'vue'
 export default Vue.extend({
   computed: {
     navigation(){
-      return this.$store.getters["app/navigation"];
+      // @ts-ignore
+      return this.$store.getters["app/menu"].navigation;
+    }
+  },
+  methods: {
+    toggleMenu() {
+      this.$store.commit('app/TOGGLE_MENU');
     }
   }
 })

@@ -1,31 +1,39 @@
 export const state = () => ({
-  navigation: [
-    {
-      route: 'logs',
-      label: 'Logs',
-    },
-    {
-      route: 'transfer',
-      label: 'Transfer',
-    },
-  ],
-  socials: [
-    {
-      href: '/',
-      icon: 'mono/twitter',
-    },
-    {
-      href: '/',
-      icon: 'mono/medium',
-    },
-    {
-      href: '/',
-      icon: 'mono/github',
-    },
-  ]
+  menu: {
+    open: false,
+    navigation: [
+      {
+        route: 'logs',
+        label: 'Logs',
+      },
+      {
+        route: 'transfer',
+        label: 'Transfer',
+      },
+    ],
+    socials: [
+      {
+        href: '/',
+        icon: 'mono/twitter',
+      },
+      {
+        href: '/',
+        icon: 'mono/medium',
+      },
+      {
+        href: '/',
+        icon: 'mono/github',
+      },
+    ]
+  },
 })
 
+export const mutations = {
+  TOGGLE_MENU(state) {
+    state.menu.open = !state.menu.open;
+  }
+}
+
 export const getters = {
-  socials: (state) => state.socials,
-  navigation: (state) => state.navigation,
+  menu: (state) => state.menu,
 }

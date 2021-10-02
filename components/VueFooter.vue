@@ -35,7 +35,7 @@ export default Vue.extend({
   computed: {
     socials() {
       // @ts-ignore
-      return this.$store.getters["app/socials"];
+      return this.$store.getters["app/menu"].socials;
     }
   }
 })

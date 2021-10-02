@@ -1,17 +1,20 @@
 <template>
-  <header class="flex-shrink-0 py-[40px]">
-    <div class="container flex flex-row items-center">
-      <div class="w-1/4">
-        <nuxt-link to="/" class="text-[66px]">
-          <img src="~/assets/img/logo.svg" class="w-[66px] h-[66px]" alt="Susy" width="66" height="66">
+  <header class="flex-shrink-0 py-4 xl:py-[40px]">
+    <div class="container block sm:flex flex-row items-center">
+      <div class="lg:w-[150px]">
+        <nuxt-link to="/" class="text-[46px] sm:text-[66px]">
+          <img src="~/assets/img/logo.svg" class="w-[1em] h-[1em]" alt="Susy" width="66" height="66">
         </nuxt-link>
       </div>
-      <div class="font-heading font-light text-center text-[44px] w-2/4">
-        <span class="bg-clip-text text-transparent bg-solana2">
-          Solana cross-chain bridge
+
+      <div class="font-heading font-light sm:text-center text-[44px] leading-none flex-grow mx-auto">
+        <div class="bg-solana2 h-[1px] w-full sm:hidden my-[13px]"></div>
+        <span class="bg-clip-text text-transparent bg-solana2 sm:whitespace-nowrap">
+          Solana <br class="sm:hidden">cross-<br class="hidden sm:block md:hidden">chain bridge
         </span>
       </div>
-      <div class="flex flex-row justify-end mx-[-14px] w-1/4">
+
+      <div class="hidden sm:flex flex-row justify-end mx-[-14px] lg:w-[150px]">
         <component :is="$route.name === item.route ? 'span' : 'nuxt-link'"
                    v-for="(item, key) in navigation"
                    :key="key"

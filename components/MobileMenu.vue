@@ -1,13 +1,20 @@
 <template>
-  <div class="fixed inset-0 w-full h-full z-40 sm:hidden"
+  <div class="fixed inset-0 w-full h-full z-40 sm:hidden transition-visibility-and-transform duration-0"
        :class="{
-    'hidden': !open,
+    '-translate-x-full invisible delay-150': !open,
+    'delay-0': open,
   }">
     <button type="button"
-            class="mobile-menu__backdrop bg-solana2 rotate-180 z-[-1] absolute inset-0 w-full h-full border-none text-white"
+            class="mobile-menu__backdrop bg-solana2 rotate-180 z-[-1] absolute inset-0 w-full h-full border-none text-white transition-all"
+            :class="{
+    'opacity-0': !open,
+  }"
             aria-label="Close" @click="toggleMenu"/>
 
-    <nav class="mobile-menu__nav flex flex-col absolute left-0 top-0 bottom-0 h-full bg-white container pt-4">
+    <nav class="mobile-menu__nav flex flex-col absolute left-0 top-0 bottom-0 h-full bg-white container pt-4 transition-transform"
+         :class="{
+    '-translate-x-full': !open,
+  }">
 
       <div class="flex-shrink-0 flex justify-between">
         <nuxt-link to="/" class="text-[46px]"
@@ -85,6 +92,22 @@ export default Vue.extend({
     },
     socials() {
       return this.$store.getters["app/menu"].socials;
+    }
+  },
+  watch: {
+    open() {
+      if (typeof window !== "undefined") {
+        const html = document.querySelector('html');
+        if (html) {
+          if(this.open){
+            html.classList.add('overflow-hidden');
+            html.classList.add('sm:overflow-auto');
+          }else{
+            html.classList.remove('overflow-hidden');
+            html.classList.remove('sm:overflow-auto');
+          }
+        }
+      }
     }
   },
   methods: {

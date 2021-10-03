@@ -5,9 +5,11 @@
     'delay-0': open,
   }">
     <button type="button"
-            class="mobile-menu__backdrop bg-solana2 rotate-180 z-[-1] absolute inset-0 w-full h-full border-none text-white transition-all"
+            class="mobile-menu__backdrop rotate-180 z-[-1] absolute inset-0 w-full h-full border-none text-white transition-all"
             :class="{
     'opacity-0': !open,
+    'bg-solana2': !isLanding,
+    'bg-magenta': isLanding,
   }"
             aria-label="Close" @click="toggleMenu"/>
 

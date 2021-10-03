@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen font-sans bg-body relative flex flex-col text-maastricht-blue">
     <vue-landing-header />
-    <mobile-menu />
+    <mobile-menu is-landing />
 
     <main class="flex-grow relative z-[1]">
       <nuxt />

@@ -18,6 +18,7 @@ module.exports = {
       backgroundImage: {
         'body': 'linear-gradient(180deg, #FFFFFF 0%, #F3FFFB 90.48%)',
         'solana2': 'linear-gradient(269.45deg, #00FFA3 10.33%, #DC1FFF 97.14%)',
+        'solana': 'linear-gradient(180deg, #FFA9DC 0%, #FF0097 100%)',
       },
       colors: {
         magenta: '#FF0097',

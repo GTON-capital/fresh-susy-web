@@ -26,7 +26,11 @@
         </button>
       </div>
 
-      <div class="flex-shrink-0 bg-solana2 h-[1px] w-full my-[13px]"></div>
+      <div class="flex-shrink-0 h-[1px] w-full my-[13px]"
+      :class="{
+    'bg-solana2': !isLanding,
+    'bg-[#72979C]': isLanding,
+      }"></div>
 
       <div class="flex-grow flex flex-col overflow-auto">
         <div class="mb-auto w-full pt-[20px]">
@@ -77,17 +81,27 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  props: {
+    isLanding: {
+      type: Boolean,
+      default: false
+    }
+  },
   computed: {
     open() {
+      // @ts-ignore
       return this.$store.getters["app/menu"].open;
     },
     navigation() {
-      return this.$store.getters["app/menu"].navigation;
+      // @ts-ignore
+      return this.isLanding ? this.$store.getters["app/menu"].landingNavigation : this.$store.getters["app/menu"].navigation;
     },
     partners() {
+      // @ts-ignore
       return this.$store.getters["app/menu"].partners;
     },
     socials() {
+      // @ts-ignore
       return this.$store.getters["app/menu"].socials;
     }
   },

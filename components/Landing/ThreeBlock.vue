@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-[55px] md:mb-[120px] xl:mb-[160px]">
+  <div class="mb-[55px] md:mb-[80px] xl:mb-[160px]">
 
     <div class="mb-[29px] md:mb-[50px] text-[100px] md:text-[160px] font-heading italic leading-none font-bold">
       <span class="bg-clip-text text-transparent bg-solana">SuSy features</span>
@@ -64,7 +64,7 @@
         independent network of validators
       </div>
 
-      <div class="mb-[55px] md:mb-[80px] pt-[20px] sm:pt-[40px]">
+      <div class="pt-[20px] sm:pt-[40px]">
         <aspect class="w-full max-w-[300px] lg:hidden" :aspect="(528 / 375 * 100) + '%'">
           <img class="w-full" width="375" height="528" src="~/assets/img/landing/6.mobile.svg" alt="" loading="lazy">
         </aspect>

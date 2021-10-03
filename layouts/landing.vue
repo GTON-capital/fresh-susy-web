@@ -7,7 +7,7 @@
       <nuxt />
     </main>
 
-    <vue-footer />
+    <landing-vue-footer />
   </div>
 </template>
 

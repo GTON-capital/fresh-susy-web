@@ -12,4 +12,10 @@
 
 .btn-landing {
   @apply bg-solana text-white font-bold;
+
+  transition: background-color 150ms;
+
+  &:hover{
+    @apply bg-transparent bg-none text-magenta ring-1 ring-magenta ring-inset;
+  }
 }

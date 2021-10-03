@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    123
+    index.vue
   </div>
 </template>
 
@@ -8,5 +8,6 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  layout: 'landing'
 })
 </script>

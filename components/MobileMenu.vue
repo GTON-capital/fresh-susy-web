@@ -59,12 +59,9 @@
             info@susy.one
           </a>
         </div>
-        <div class="w-full flex mb-[22px] -mx-5">
+        <div class="w-full flex flex-wrap mb-[22px] -mx-5">
           <div v-for="(social, socialKey) in socials" :key="socialKey" class="text-[40px] px-5">
-            <a :href="social.href" class="inline-block text-desaturated-cyan hover:text-magenta">
-              <icon :name="social.icon" class="fill-current stroke-current"
-                    :class="{'scale-150': social.icon === 'mono/medium'}" />
-            </a>
+            <social-link :href="social.href" :icon="social.icon" class="text-desaturated-cyan hover:text-magenta" />
           </div>
         </div>
         <div class="w-full font-heading text-sm pb-[22px]">

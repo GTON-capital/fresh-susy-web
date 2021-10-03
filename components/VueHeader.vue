@@ -20,12 +20,13 @@
       </div>
 
       <div class="hidden sm:flex flex-row justify-end mx-[-14px] lg:w-[150px]">
-        <component :is="$route.name === item.route ? 'span' : 'nuxt-link'"
+        <component :is="$route.name === item.route ? 'span' : (item.route ? 'nuxt-link' : 'a')"
                    v-for="(item, key) in navigation"
                    :key="key"
                    :class="{ 'text-magenta underline hover:no-underline': $route.name !== item.route }"
-                   :to="item.route ? ({name: item.route}) : item.href"
-                   class="px-[14px] font-heading text-base">
+                   :to="item.route ? ({name: item.route}) : false"
+                   :href="item.route ? false : item.href"
+                   class="px-[14px] font-heading text-base whitespace-nowrap">
           {{ item.label }}
         </component>
       </div>

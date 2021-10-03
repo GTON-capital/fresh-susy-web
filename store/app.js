@@ -1,6 +1,16 @@
 export const state = () => ({
   menu: {
     open: true,
+    landingNavigation: [
+      {
+        route: 'logs',
+        label: 'Launch APP',
+      },
+      {
+        href: '/',
+        label: 'Docs',
+      },
+    ],
     navigation: [
       {
         route: 'logs',
@@ -33,6 +43,10 @@ export const state = () => ({
       {
         href: '/',
         icon: 'mono/github',
+      },
+      {
+        href: '/',
+        icon: 'mono/telegram',
       },
     ]
   },

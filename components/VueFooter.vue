@@ -7,10 +7,7 @@
       </div>
       <div class="flex order-2 mb-2 sm:mb-0">
         <div v-for="(social, socialKey) in socials" :key="socialKey" class="text-2xl px-5">
-          <a :href="social.href" class="inline-block text-desaturated-cyan hover:text-magenta">
-            <icon :name="social.icon" class="fill-current stroke-current"
-                  :class="{'scale-150': social.icon === 'mono/medium'}" />
-          </a>
+          <social-link :href="social.href" :icon="social.icon" class="text-desaturated-cyan hover:text-magenta" />
         </div>
       </div>
       <div class="text-base order-1 sm:order-3 hidden sm:block">

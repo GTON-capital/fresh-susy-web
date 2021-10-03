@@ -7,6 +7,8 @@
 
       <landing-two-block />
 
+      <landing-three-block />
+
 
     </div>
   </div>

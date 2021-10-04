@@ -11,3 +11,39 @@
   text-decoration-thickness: 0.5px;
   text-underline-offset: 2px;
 }
+
+.underline-thickness-2-magenta {
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+  text-decoration-color: theme('colors.magenta') !important;
+}
+
+
+@media (hover: hover) {
+  ::-webkit-scrollbar-track {
+    border-radius: 8px;
+
+    @apply bg-desaturated-cyan bg-opacity-50;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+
+    @apply bg-desaturated-cyan;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* stylelint-disable */
+  .modal-toggle:checked ~ .modal ~ .drawer .drawer-toggle ~ .drawer-content::-webkit-scrollbar-track,
+  .modal-toggle:checked ~ .modal ~ .drawer .drawer-toggle ~ .drawer-content::-webkit-scrollbar-thumb,
+  .modal:target ~ .drawer .drawer-toggle ~ .drawer-content::-webkit-scrollbar-track,
+  .modal:target ~ .drawer .drawer-toggle ~ .drawer-content::-webkit-scrollbar-thumb {
+    @apply bg-opacity-50;
+  }
+
+  /* stylelint-enable */
+}

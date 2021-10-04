@@ -15,15 +15,15 @@
       <div class="bg-[#72979C] h-[1px] w-full sm:hidden my-[13px]"></div>
 
       <div class="hidden sm:flex flex-row justify-end mx-[-25px] lg:w-[150px]">
-        <component :is="item.route ? ($route.name === item.route ? 'span' : 'nuxt-link') : 'a'"
-                   v-for="(item, key) in navigation"
-                   :key="key"
-                   :class="{ 'underline hover:no-underline': $route.name !== item.route }"
-                   :to="item.route ? ({name: item.route}) : false"
-                   :href="item.href ? item.href : false"
-                   class="text-maastricht-blue px-[25px] font-heading text-lg whitespace-nowrap">
+        <component-link
+          v-for="(item, key) in navigation"
+          :key="key"
+          :route="item.route"
+          :href="item.href"
+          :class="{ 'underline hover:no-underline': $route.name !== item.route }"
+          class="text-maastricht-blue px-[25px] font-heading text-lg whitespace-nowrap">
           {{ item.label }}
-        </component>
+        </component-link>
       </div>
       <div class="w-[50px] hidden sm:block"></div>
       <div class="hidden sm:flex flex-row -mx-5">
@@ -37,8 +37,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ComponentLink from "~/components/ComponentLink.vue";
 
 export default Vue.extend({
+  components: {ComponentLink},
   computed: {
     open() {
       return this.$store.getters["app/menu"].open;

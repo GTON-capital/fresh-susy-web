@@ -9,17 +9,27 @@
           class="absolute left-0 top-0 w-full h-[66px] bg-[#F3F9F9] z-[-1] rounded-tl-[18px] rounded-tr-[18px]"></div>
 
         <vue-scrolling-table class="logs-page__table" dead-area-color="#F3F9F9"
-                             :style="{maxHeight: isMaxHeight ? 'calc(100vh - 20rem)' : 'none'}" :scroll-vertical="isMaxHeight">
+                             :style="{maxHeight: isMaxHeight ? 'calc(100vh - 20rem)' : 'none'}" :scroll-vertical="isMaxHeight" :scroll-horizontal="isHorizontalScroll">
           <template #thead>
             <tr>
               <th v-for="(col, colKey) in cols"
-                  :key="colKey" class="logs-page__th">{{ col.label }}
+                  :key="colKey" class="logs-page__th"
+              :style="{
+                    width: col.width,
+                    minWidth: col.width,
+                    maxWidth: col.width,
+              }">{{ col.label }}
               </th>
             </tr>
           </template>
           <template #tbody>
             <tr v-for="(item, itemKey) in items" :key="'row'+itemKey" class="logs-page__tr">
-              <td v-for="(col, colKey) in cols" :key="'col'+colKey" class="logs-page__td">
+              <td v-for="(col, colKey) in cols" :key="'col'+colKey"
+                  :style="{
+                    width: col.width,
+                    minWidth: col.width,
+                    maxWidth: col.width,
+              }" class="logs-page__td">
                 <span class="flex items-center min-h-[65px]">
                   <template v-if="col.type === 'timestamp'">
                     22.07.2020 <br>08:15:44
@@ -91,17 +101,18 @@ export default Vue.extend({
     total: 200,
     page: 1,
     isMaxHeight: true,
+    isHorizontalScroll: false,
     cols: [
-      {label: 'Token', width: '100px', index: 'token', type: 'text', withIcon: 'iconExampleFieldName'},
-      {label: 'Amount', width: '100px', index: 'amount', type: 'text'},
+      {label: 'Token', width: '110px', index: 'token', type: 'text', withIcon: 'iconExampleFieldName'},
+      {label: 'Amount', width: '80px', index: 'amount', type: 'text'},
       {label: 'From Chain', width: '100px', index: 'fromChain', type: 'text'},
-      {label: 'Token address', width: '100px', index: 'tokenAddress1', type: 'copy'},
+      {label: 'Token address', width: '120px', index: 'tokenAddress1', type: 'copy'},
       {label: 'To Chain', width: '100px', index: 'coChain', type: 'text'},
-      {label: 'Token address', width: '100px', index: 'tokenAddress2', type: 'copy'},
+      {label: 'Token address', width: '120px', index: 'tokenAddress2', type: 'copy'},
       {label: 'Status', width: '100px', index: 'status', type: 'text'},
-      {label: 'Locking trx address', width: '100px', index: 'lockingAddress', type: 'copy'},
-      {label: 'Minting trx address', width: '100px', index: 'mintingAddress', type: 'copy'},
-      {label: 'Timestamp', width: '100px', index: 'timestamp', type: 'timestamp'},
+      {label: 'Locking trx address', width: '110px', index: 'lockingAddress', type: 'copy'},
+      {label: 'Minting trx address', width: '110px', index: 'mintingAddress', type: 'copy'},
+      {label: 'Timestamp', width: '110px', index: 'timestamp', type: 'timestamp'},
     ],
     items: [
       {...exampleItem1},
@@ -130,6 +141,7 @@ export default Vue.extend({
   }),
   mounted() {
     this.isMaxHeight = innerWidth > 1030;
+    this.isHorizontalScroll = innerWidth < 1280;
   }
 })
 </script>

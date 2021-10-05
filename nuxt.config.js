@@ -4,7 +4,7 @@ const shortDescription = "SuSy is a multichain bridge leveraging the Wormhole pr
 
 const url = "https://mesh.susy.one";
 
-const previewImagePath = url+"/prevew.jpg";
+const previewImagePath = url+"/preview.jpg";
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target

@@ -1,4 +1,4 @@
-.btn{
+.btn {
   @apply inline-block text-black h-[42px] leading-[42px] text-center text-[14px];
 }
 
@@ -10,22 +10,49 @@
   @apply w-full block;
 }
 
-.btn-solana2 {
-  @apply bg-solana2 text-white font-bold;
+.btn-solana2, .btn-outline-solana2 {
+  @apply bg-solana2 text-white font-bold rounded-[8px];
 
-  transition: background-color 150ms;
+  transition: background 150ms;
 
-  &:hover{
-    @apply bg-transparent bg-none text-magenta ring-1 ring-magenta ring-inset;
+  &:hover {
+    @apply bg-magenta-linear-gradient text-white;
+  }
+
+  &:disabled, &.disabled {
+    @apply opacity-20 pointer-events-none;
   }
 }
+
+/* stylelint-disable */
+.btn-outline-solana2 {
+  @apply relative z-[1] text-magenta;
+
+  &::before {
+    content: '';
+    box-shadow: inset 0 0 0 24px white;
+
+    @apply rounded-[8px] bg-transparent z-[-1] absolute inset-0 border-transparent border-[1.5px];
+  }
+
+  &:hover {
+    @apply text-white;
+
+    &::before {
+      @apply opacity-0;
+    }
+  }
+
+}
+
+/* stylelint-enable */
 
 .btn-landing {
   @apply bg-solana text-white font-bold;
 
   transition: background-color 150ms;
 
-  &:hover{
+  &:hover {
     @apply bg-transparent bg-none text-magenta ring-1 ring-magenta ring-inset;
   }
 }

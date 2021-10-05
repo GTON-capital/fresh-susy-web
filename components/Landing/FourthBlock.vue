@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <landing-buy-block class="sm:hidden mt-8" />
+    <landing-buy-block class="sm:flex sm:justify-center text-center text-[15px] lg:hidden mt-8" />
   </div>
 </template>
 

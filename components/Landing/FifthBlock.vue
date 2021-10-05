@@ -1,11 +1,11 @@
 <template>
   <div class="text-center sm:text-left">
-    <div class="font-bold text-[100px] md:text-[160px] font-heading italic bg-clip-text text-transparent bg-solana mb-[20px] mb-[40px] leading-none">
+    <div class="font-bold text-[100px] md:text-[120px] xl:text-[160px] font-heading italic bg-clip-text text-transparent bg-solana mb-[20px] mb-[40px] leading-none">
       $SUSY token
     </div>
     <div class="flex flex-wrap mx-[-20px] lg:mx-0 text-[18px] sm:text-[30px]">
 
-      <div class="w-full sm:w-1/2 md:w-1/3 px-[20px] lg:w-[260px] lg:pr-[42px] lg:pl-0 mb-[44px]">
+      <div class="w-full sm:w-1/2 md:w-1/3 px-[20px] lg:w-[247px] lg:pr-[42px] lg:pl-0 mb-[44px]">
         <div class="w-[108px] h-[108px] mb-[10px] sm:mb-[28px] relative mx-auto sm:mx-0">
           <img class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="~/assets/img/landing/token/1.svg" alt="">
         </div>
@@ -21,7 +21,7 @@
         for bridge trxs for $SUSY holders
       </div>
 
-      <div class="w-full sm:w-1/2 md:w-1/3 px-[20px] lg:w-[172px] lg:pr-0 lg:pl-0 mb-[44px]">
+      <div class="w-full sm:w-1/2 md:w-1/3 px-[20px] lg:w-[247px] xl:w-[172px] lg:pr-[42px] xl:pr-0 lg:pl-0 mb-[44px]">
         <div class="w-[108px] h-[108px] mb-[10px] sm:mb-[28px] relative mx-auto sm:mx-0">
           <img class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="~/assets/img/landing/token/3.svg" alt="">
         </div>

@@ -19,7 +19,7 @@
       Seamless <br class="hidden md:block">multichain transfers
     </div>
 
-    <landing-buy-block class="sm:flex sm:justify-center lg:block lg:absolute lg:right-0 lg:top-[188px] xl:top-[140px] text-center text-[15px]" />
+    <landing-buy-block class="sm:flex sm:justify-center text-center text-[15px] lg:block lg:fixed lg:right-1/2 lg:translate-x-[30rem] xl:translate-x-[36rem] lg:top-[245px] xl:top-[292px]"/>
   </div>
 </template>
 

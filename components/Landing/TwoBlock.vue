@@ -15,7 +15,7 @@
       function wrap_token&lt;T = EVM | nonEVM, R = EVM | nonEVM&gt;(origin: T): R
     </div>
 
-    <landing-buy-block class="sm:hidden mt-8" />
+    <landing-buy-block class="sm:flex sm:justify-center text-center text-[15px] lg:hidden mt-8" />
   </div>
 </template>
 

@@ -3,7 +3,7 @@
 
     <landing-first-block />
 
-    <div class="max-w-[821px]">
+    <div class="lg:max-w-[670px] xl:max-w-[821px]">
 
       <landing-two-block />
 

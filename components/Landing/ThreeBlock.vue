@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <div class="font-medium text-[28px] leading-[38px] md:text-[55px] md:leading-[75px]">
+      <div class="font-medium text-[28px] leading-[38px] md:text-[55px] md:leading-[75px] md:mb-4">
         <span class="hidden md:inline">1. </span>Bridging done in&nbsp;<span
         class="font-heading italic text-[38px] md:text-[75px] text-magenta font-medium">1&nbsp;step:</span>
       </div>
@@ -30,7 +30,7 @@
     </div>
 
     <div>
-      <div class="font-medium text-[28px] leading-[38px] md:text-[55px] md:leading-[75px]">
+      <div class="font-medium text-[28px] leading-[38px] md:text-[55px] md:leading-[75px] md:mb-4">
         <span class="hidden md:inline">2. </span>Tokens <span
         class="font-heading italic text-[38px] md:text-[75px] text-magenta font-medium">not&nbsp;bound</span> to&nbsp;origin:
       </div>
@@ -54,7 +54,7 @@
     </div>
 
     <div>
-      <div class="font-medium text-[28px] leading-[38px] md:text-[55px] md:leading-[75px]">
+      <div class="font-medium text-[28px] leading-[38px] md:text-[55px] md:leading-[75px] md:mb-4">
         <span class="hidden md:inline">3. </span><span
         class="font-heading italic text-[38px] md:text-[75px] text-magenta font-medium">Trustless</span>
         bridging:

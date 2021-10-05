@@ -9,8 +9,8 @@
     <div class="max-w-[826px] rounded-xl bg-white">
       <div v-for="(item, key) in items" :key="key" class="flex min-h-[82px] lg:min-h-[164px]">
         <div
-          class="flex items-center font-heading font-bold italic text-[58px] lg:text-[160px] leading-none pl-[18px] pr-[9px] w-[60px] lg:pl-[37px] lg:pr-[15px] lg:w-[153px]">
-          <div class="relative -top-2 lg:-top-4 bg-clip-text text-transparent bg-solana">
+          class="flex items-center font-heading font-bold italic text-[58px] lg:text-[160px] pl-[18px] pr-[9px] w-[60px] lg:pl-[37px] lg:pr-[15px] lg:w-[153px]">
+          <div class="mt-[-0.5em] mb-[-0.2em] bg-clip-text text-transparent bg-solana">
             {{ item.number }}
           </div>
         </div>

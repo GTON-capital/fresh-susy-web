@@ -7,7 +7,7 @@
 
       <div class="w-full sm:w-1/2 md:w-1/3 px-[20px] lg:w-[247px] lg:pr-[42px] lg:pl-0 mb-[44px]">
         <div class="w-[108px] h-[108px] mb-[10px] sm:mb-[28px] relative mx-auto sm:mx-0">
-          <img class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="~/assets/img/landing/token/1.svg" alt="">
+          <img class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-150" src="~/assets/img/landing/token/1.svg" alt="">
         </div>
         Launch
         in Q4 2021
@@ -29,7 +29,7 @@
         at launch
       </div>
 
-      <div class="w-full sm:w-1/2 px-[20px] lg:w-[423px] lg:pr-[86px] lg:pl-0 mb-[44px]">
+      <div class="w-full sm:w-1/2 px-[20px] lg:w-[360px] lg:pr-[42px] lg:pl-0 mb-[44px]">
         <div class="w-[108px] h-[108px] mb-[10px] sm:mb-[28px] relative mx-auto sm:mx-0">
           <img class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="~/assets/img/landing/token/4.svg" alt="">
         </div>

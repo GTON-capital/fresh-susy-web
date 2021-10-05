@@ -5,9 +5,9 @@
       SuSy is a <span class="text-magenta font-heading italic text-[28px] md:text-[75px]">multichain</span> bridge leveraging the Wormhole protocol
     </div>
 
-    <div class="rounded-xl bg-white pt-[7px] md:pt-[13px] pb-[20px] md:pb-[55px] px-[30px] mb-[21px]" style="box-shadow: 0 8px 20px rgba(106, 102, 102, 0.25);">
-      <aspect class="max-w-[438px] mx-auto" :aspect="(484 / 438 * 100) + '%'">
-        <img class="w-full h-full" src="~/assets/img/landing/1.svg" width="438" height="484" alt="" loading="lazy">
+    <div class="rounded-xl bg-white pt-[7px] md:pt-[13px] px-[30px] mb-[21px]" style="box-shadow: 0 8px 20px rgba(106, 102, 102, 0.25);">
+      <aspect class="max-w-[439px] mx-auto" :aspect="(526 / 439 * 100) + '%'">
+        <img class="w-full h-full" src="~/assets/img/landing/1.svg" width="439" height="526" alt="" loading="lazy">
       </aspect>
     </div>
 

@@ -4,6 +4,13 @@
       <div class="mb-[28px] font-semibold text-[28px] leading-none text-center font-heading">
         Transfer
       </div>
+
+      <div class="mb-[24px] bg-[#F3F9F9] rounded-[8px] py-4 px-5">
+
+      </div>
+      <button class="btn btn-solana2 btn-block">
+        Next
+      </button>
     </div>
   </div>
 </template>

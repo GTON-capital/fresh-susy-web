@@ -1,5 +1,5 @@
 .btn{
-  @apply inline-block text-black h-[42px] leading-[42px] text-center;
+  @apply inline-block text-black h-[42px] leading-[42px] text-center text-[14px];
 }
 
 .btn-square {
@@ -8,6 +8,16 @@
 
 .btn-block {
   @apply w-full block;
+}
+
+.btn-solana2 {
+  @apply bg-solana2 text-white font-bold;
+
+  transition: background-color 150ms;
+
+  &:hover{
+    @apply bg-transparent bg-none text-magenta ring-1 ring-magenta ring-inset;
+  }
 }
 
 .btn-landing {

@@ -71,7 +71,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   data: () => ({
-    connected: true,
+    connected: false,
   }),
   computed: {
     modals() {

@@ -12,11 +12,20 @@
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">Origin</div>
             </div>
-            <div class="w-full bg-gray-400 h-field"></div>
+
+            <div class="ring-[#BDDBDF] ring-inset ring-1 w-full h-field bg-white rounded-[8px] py-[4px] px-[12px] flex items-center justify-start">
+              <div class="rounded-full bg-white border-[#EAF1F3] border flex items-center justify-center mr-[6px] h-[32px] w-[32px] min-w-[32px]" style="box-shadow: 0 1px 25px #E2F1F6;">
+                <img class="w-[18px] h-[18px] object-center object-contain" src="~/assets/img/icons/sol.svg" alt="" width="30" height="30">
+              </div>
+              <div class="text-[14px]">
+                Solana
+              </div>
+            </div>
+
           </div>
 
           <div class="mb-[5px] sm:mb-0 sm:flex-initial sm:px-[9px] flex items-end justify-end">
-            <div class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-field flex items-center justify-center">
+            <div class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-field flex items-center justify-center bg-white">
               <icon name="mono/arrow-fold" class="fill-current text-desaturated-cyan text-[12px] rotate-90 sm:rotate-0" />
             </div>
           </div>
@@ -25,7 +34,14 @@
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">Destination</div>
             </div>
-            <div class="w-full bg-gray-500 h-field"></div>
+            <div class="ring-[#BDDBDF] ring-inset ring-1 w-full h-field bg-white rounded-[8px] py-[4px] px-[12px] flex items-center justify-start">
+              <div class="rounded-full bg-white border-[#EAF1F3] border flex items-center justify-center mr-[6px] h-[32px] w-[32px] min-w-[32px]" style="box-shadow: 0 1px 25px #E2F1F6;">
+                <img class="w-[18px] h-[18px] object-center object-contain" src="~/assets/img/icons/poligon.svg" alt="" width="30" height="30">
+              </div>
+              <div class="text-[14px]">
+                Polygon
+              </div>
+            </div>
           </div>
 
         </div>
@@ -77,14 +93,21 @@
               <div class="mr-auto font-semibold opacity-50">Token</div>
               <div class="text-desaturated-cyan">Balance: 0</div>
             </div>
-            <div class="w-full bg-gray-400 h-field"></div>
+            <div class="w-full">
+              <select class="form-select w-full">
+                <option value="1" selected>Ray 1</option>
+                <option value="2">Ray 2</option>
+              </select>
+            </div>
           </div>
 
           <div class="sm:flex-1 sm:px-[10px]">
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold opacity-50">Amount</div>
             </div>
-            <div class="w-full bg-gray-500 h-field"></div>
+            <div class="w-full">
+              <input type="text" class="form-input w-full" placeholder="0">
+            </div>
           </div>
 
         </div>

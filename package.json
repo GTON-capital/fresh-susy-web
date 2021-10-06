@@ -24,6 +24,7 @@
     "@nuxtjs/manifest": "^3.0.0-beta.16",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/svg-sprite": "^0.5.2",
+    "@tailwindcss/forms": "^0.3.4",
     "@types/uuid": "^8.3.1",
     "core-js": "^3.15.1",
     "jw-paginate": "^1.0.4",

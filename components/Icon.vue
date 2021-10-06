@@ -1,5 +1,5 @@
 <template>
-  <svg-icon :name="name" :class="customSize?'':'icon-inline'"/>
+  <svg-icon :name="name" class="icon"/>
 </template>
 
 <script lang="ts">
@@ -18,3 +18,15 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="postcss">
+.icon {
+  overflow: hidden;
+  display: inline-block;
+  flex-shrink: 0;
+  pointer-events: none;
+  width: 1em;
+  height: 1em;
+  vertical-align: baseline;
+}
+</style>

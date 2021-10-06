@@ -13,6 +13,15 @@ module.exports = {
       },
     },
     extend: {
+      height: {
+        field: '42px',
+      },
+      lineHeight: {
+        field: '42px',
+      },
+      maxWidth: {
+        card: '660px'
+      },
       fontFamily: {
         sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
         heading: ['Cormorant', ...defaultTheme.fontFamily.sans],

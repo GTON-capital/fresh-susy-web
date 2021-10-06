@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="rounded-[18px] border-[#EAF1F3] border bg-white px-[20px] sm:px-[40px] md:px-[70px] py-[18px] sm:pt-[38px] sm:pb-[60px] max-w-[600px] md:max-w-[660px] mx-auto" style="box-shadow: 0 1px 25px #E2F1F6;">
+    <div class="rounded-[18px] border-[#EAF1F3] border bg-white px-[20px] sm:px-[40px] md:px-[70px] py-[18px] sm:pt-[38px] sm:pb-[60px] max-w-card mx-auto" style="box-shadow: 0 1px 25px #E2F1F6;">
       <div class="mb-[28px] font-semibold text-[28px] leading-none text-center font-heading">
         Transfer
       </div>
@@ -12,11 +12,11 @@
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">Origin</div>
             </div>
-            <div class="w-full bg-gray-400 h-[42px]"></div>
+            <div class="w-full bg-gray-400 h-field"></div>
           </div>
 
           <div class="mb-[5px] sm:mb-0 sm:flex-initial sm:px-[9px] flex items-end justify-end">
-            <div class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-[42px] flex items-center justify-center">
+            <div class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-field flex items-center justify-center">
               <icon name="mono/arrow-fold" class="fill-current text-desaturated-cyan text-[12px] rotate-90 sm:rotate-0" />
             </div>
           </div>
@@ -25,7 +25,7 @@
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">Destination</div>
             </div>
-            <div class="w-full bg-gray-500 h-[42px]"></div>
+            <div class="w-full bg-gray-500 h-field"></div>
           </div>
 
         </div>
@@ -39,14 +39,14 @@
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">From address</div>
             </div>
-            <div class="w-full bg-gray-500 h-[42px]"></div>
+            <div class="w-full bg-gray-500 h-field"></div>
           </div>
 
           <div class="sm:flex-1 sm:px-[10px]">
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">To address</div>
             </div>
-            <div class="w-full bg-gray-500 h-[42px]"></div>
+            <div class="w-full bg-gray-500 h-field"></div>
           </div>
 
         </div>
@@ -61,7 +61,7 @@
       </template>
       <template v-else>
 
-        <button class="btn btn-outline-solana2 btn-block mt-4" @click="connectWallet = !connectWallet">
+        <button class="btn btn-outline-solana2 btn-block mt-4" @click="handleConnectWallet">
           Connect wallet
         </button>
 
@@ -77,14 +77,14 @@
               <div class="mr-auto font-semibold opacity-50">Token</div>
               <div class="text-desaturated-cyan">Balance: 0</div>
             </div>
-            <div class="w-full bg-gray-400 h-[42px]"></div>
+            <div class="w-full bg-gray-400 h-field"></div>
           </div>
 
           <div class="sm:flex-1 sm:px-[10px]">
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold opacity-50">Amount</div>
             </div>
-            <div class="w-full bg-gray-500 h-[42px]"></div>
+            <div class="w-full bg-gray-500 h-field"></div>
           </div>
 
         </div>
@@ -97,12 +97,24 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 
 export default Vue.extend({
   data: () => ({
-    connectWallet: true
-  })
+    connectWallet: false
+  }),
+  methods: {
+    handleConnectWallet(){
+      // Deep copy object
+      const connectWallet = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].connectWallet));
+
+      connectWallet.data.callbackConnect = () => {
+        this.connectWallet = true
+        this.$store.commit('app/CLOSE_MODAL')
+      }
+      this.$store.commit('app/PUSH_MODAL', connectWallet)
+    }
+  }
 })
 </script>

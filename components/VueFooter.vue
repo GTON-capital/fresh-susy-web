@@ -11,7 +11,20 @@
         </div>
       </div>
       <div class="text-base order-1 sm:order-3 hidden sm:block">
-        Partners
+        <div class="relative group cursor-pointer">
+          <div class="group-focus-within:block hidden absolute z-20 bottom-full -translate-y-2 left-0 border-[#FF1EA3] border rounded-[8px] bg-[#F5FAFB] py-[3px] min-w-[160px]">
+            <a href="/" target="_blank" class="py-[5px] px-[20px] block no-underline text-maastricht-blue hover:text-magenta font-heading">
+              Graviton
+            </a>
+            <a href="/" target="_blank" class="py-[5px] px-[20px] block no-underline text-maastricht-blue hover:text-magenta font-heading">
+              Gravity
+            </a>
+          </div>
+          <span tabindex="-1">
+            Partners
+            <icon name="mono/chevron" class="group-focus-within:rotate-180 fill-current text-[10px] text-desaturated-cyan" />
+          </span>
+        </div>
       </div>
       <div class="order-3 sm:order-4 mb-2 sm:mb-0">
         <a href="mailto:info@susy.one" class="text-base text-magenta underline hover:no-underline">

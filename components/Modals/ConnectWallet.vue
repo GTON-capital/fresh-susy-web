@@ -84,6 +84,7 @@ export default Vue.extend({
   methods: {
     handleConnectWallet() {
       this.modal.data.callbackConnect()
+      this.connected = false
     }
   }
 })

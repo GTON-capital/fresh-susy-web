@@ -55,14 +55,19 @@
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">From address</div>
             </div>
-            <div class="w-full bg-gray-500 h-field"></div>
+            <div class="w-full relative">
+              <input type="text" class="form-input w-full bg-[#F3F9F9] border-[#F3F9F9] pr-[50px]" value="0x1015e2E...6AD26FB9" readonly>
+              <img class="absolute -translate-y-1/2 top-1/2 right-[18px] w-[28px] h-[28px] object-contain object-center" src="~/assets/img/icons/phantom.svg" alt="">
+            </div>
           </div>
 
           <div class="sm:flex-1 sm:px-[10px]">
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">To address</div>
             </div>
-            <div class="w-full bg-gray-500 h-field"></div>
+            <div class="w-full">
+              <input type="text" class="form-input w-full" value="3PAAS...SRktwPaw" readonly>
+            </div>
           </div>
 
         </div>

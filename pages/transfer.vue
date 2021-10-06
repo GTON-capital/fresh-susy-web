@@ -94,10 +94,12 @@
               <div class="text-desaturated-cyan">Balance: 0</div>
             </div>
             <div class="w-full">
-              <select class="form-select w-full">
-                <option value="1" selected>Ray 1</option>
-                <option value="2">Ray 2</option>
-              </select>
+              <button type="button" class="form-select w-full text-left flex items-center justify-start" @click="handleSelectToken">
+                <span class="border-[#EAF1F3] border rounded-full h-[32px] w-[32px] min-w-[32px] flex justify-center items-center mr-[6px] bg-white" style="box-shadow: rgb(226, 241, 246) 0 1px 25px;">
+                  <img class="w-[18px] h-[18px] object-contain object-center" :src="item.img" alt="" width="30" height="30">
+                </span>
+                {{ item.label }}
+              </button>
             </div>
           </div>
 
@@ -125,9 +127,23 @@ import Vue from 'vue'
 
 export default Vue.extend({
   data: () => ({
+    item: {
+      img: require('~/assets/img/icons/ray.svg'),
+      label: 'Ray',
+    },
     connectWallet: false
   }),
   methods: {
+    handleSelectToken(){
+      // Deep copy object
+      const selectToken = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].selectToken));
+
+      selectToken.data.callbackSelectToken = (item) => {
+        this.item = item
+        this.$store.commit('app/CLOSE_MODAL')
+      }
+      this.$store.commit('app/PUSH_MODAL', selectToken)
+    },
     handleConnectWallet(){
       // Deep copy object
       const connectWallet = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].connectWallet));

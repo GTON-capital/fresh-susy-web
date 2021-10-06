@@ -20,7 +20,8 @@ module.exports = {
         field: '42px',
       },
       maxWidth: {
-        card: '660px'
+        card: '660px',
+        'modal-card': '708px', // 660 + 24*2
       },
       fontFamily: {
         sans: ['Montserrat', ...defaultTheme.fontFamily.sans],

@@ -11,8 +11,7 @@
 
     <transition name="fade">
       <div v-if="modal" :key="name+'-'+modal.index"
-           class="relative p-[1.5rem] w-full z-[1] m-auto"
-           :class="boxClass">
+           class="relative p-[1.5rem] z-[1] m-auto max-w-modal-card w-full">
         <slot/>
       </div>
     </transition>

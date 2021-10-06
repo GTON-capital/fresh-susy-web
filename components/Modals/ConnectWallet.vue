@@ -1,7 +1,7 @@
 <template>
-  <modal name="connect-wallet" box-class="max-w-card"
+  <modal name="connect-wallet"
   @close="$store.commit('app/CLOSE_MODAL')">
-    <div class="relative h-full w-full bg-white rounded-[18px] min-h-[284px] py-[34px] px-[20px] md:px-[70px]">
+    <div class="relative h-full w-full bg-white rounded-[18px] min-h-[300px] py-[34px] px-[20px] md:px-[70px] max-w-card">
 
       <button type="button"
               class="absolute left-0 top-0 sm:left-[54px] sm:top-[24px] bg-transparent text-magenta no-underline hover:underline inline-block text-[12px] p-4 font-bold"
@@ -11,7 +11,7 @@
       </button>
 
       <button
-        class="absolute z-10 right-[24px] top-[24px] sm:right-[34px] sm:top-[24px] bg-transparent text-desaturated-cyan hover:text-magenta text-[12px] p-4"
+        class="absolute z-10 right-0 top-0 sm:right-[10px] sm:top-0 bg-transparent text-desaturated-cyan hover:text-magenta text-[12px] p-4"
         aria-label="Close the modal window"
         @click="$store.commit('app/CLOSE_MODAL')">
         <icon name="mono/close" class="fill-current stroke-current"/>
@@ -22,7 +22,7 @@
         Connect wallet
       </div>
 
-      <div class="bg-[#F3F9F9] px-[20px] pt-[22px] pb-[32px] sm:py-[34px] rounded-[8px]">
+      <div class="sm:relative bg-[#F3F9F9] px-[20px] pt-[22px] pb-[32px] sm:py-[34px] rounded-[8px]">
         <div class="flex flex-wrap mx-[-10px]">
           <div class="w-full sm:w-1/2 px-[10px] mb-4 sm:mb-0">
             <div
@@ -33,11 +33,33 @@
             </div>
           </div>
           <div class="w-full sm:w-1/2 px-[10px]">
-            <button type="button" class="btn btn-outline-solana2 btn-block"
-            @click="handleConnectWallet">
-              Connect
-            </button>
+            <template v-if="connected">
+              <div
+                class="w-full bg-[#E7F2F1] rounded-[8px] flex items-center justify-start px-[13px] py-[4px] text-[14px] h-field">
+                <div class="font-semibold text-[13px] text-magenta mr-auto">
+                  0x1012E...6AB9
+                </div>
+                <button class="text-magenta underline text-magenta hover:no-underline inline-block bg-transparent border-none text-[12px]"
+                        @click="connected = false">Change</button>
+                <button class="btn btn-block rounded-full btn-outline-solana2 ml-[14px] h-[23px] w-[23px] min-w-[23px] leading-[23px] text-desaturated-cyan hover:text-white"
+                @click="connected = false">
+                  <icon name="mono/logout" class="fill-current stroke-current text-[8px] relative left-[0.5px] top-[-1px]" />
+                </button>
+              </div>
+            </template>
+            <template v-else>
+              <button type="button" class="btn btn-outline-solana2 btn-block" @click="connected = true">
+                Connect
+              </button>
+            </template>
           </div>
+        </div>
+
+        <div v-if="connected" class="mt-[24px] text-center sm:absolute sm:bottom-[-50px] left-0 w-full">
+          <button class="btn btn-outline-solana2 btn-block sm:h-auto sm:w-auto sm:inline-block sm:underline hover:no-underline sm:leading-none sm:bg-none sm:hover:text-magenta"
+                  @click="handleConnectWallet">
+            Continue
+          </button>
         </div>
       </div>
     </div>
@@ -48,6 +70,9 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  data: () => ({
+    connected: true,
+  }),
   computed: {
     modals() {
       return this.$store.getters['app/modals'];
@@ -58,9 +83,7 @@ export default Vue.extend({
   },
   methods: {
     handleConnectWallet() {
-      if(this.modal){
-        this.modal.data.callbackConnect()
-      }
+      this.modal.data.callbackConnect()
     }
   }
 })

@@ -47,11 +47,11 @@ export default Vue.extend({
     items: [
       {
         img: require('~/assets/img/icons/ray.svg'),
-        label: 'Ray',
+        label: 'RAY',
       },
       {
         img: require('~/assets/img/icons/step.svg'),
-        label: 'Step',
+        label: 'STEP',
       },
     ]
   }),

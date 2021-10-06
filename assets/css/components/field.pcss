@@ -4,6 +4,10 @@
   &:disabled, &.disabled {
     @apply text-opacity-30 pointer-events-none placeholder-opacity-30;
   }
+
+  &:read-only:focus {
+    @apply ring-0 border-[#BDDBDF];
+  }
 }
 
 /* stylelint-disable */

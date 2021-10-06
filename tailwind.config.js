@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const svgToDataUri = require("mini-svg-data-uri");
 
 module.exports = {
   mode: 'jit',
@@ -32,6 +33,12 @@ module.exports = {
         'magenta-linear-gradient': 'linear-gradient(0deg, #FF0097 0%, #FF0097 0%)',
         'solana2': 'linear-gradient(269.45deg, #00FFA3 10.33%, #DC1FFF 97.14%)',
         'solana': 'linear-gradient(181.16deg, #FFA9DC 1.06%, #FF0097 98.05%)',
+        'chevron-magenta': `url("${svgToDataUri(
+          `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="#FF0097" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4"/></svg>`
+        )}")`,
+        'chevron-magenta-muted': `url("${svgToDataUri(
+          `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="#FF00974D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4"/></svg>`
+        )}")`,
       },
       colors: {
         magenta: '#FF0097',
@@ -51,7 +58,7 @@ module.exports = {
     },
   },
   plugins: [
-    require("./tailwindcss/forms")({
+    require("@tailwindcss/forms")({
       strategy: 'class',
     }),
   ],

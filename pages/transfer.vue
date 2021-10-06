@@ -90,11 +90,13 @@
 
           <div class="mb-[14px] sm:mb-0 sm:w-[222px] sm:px-[10px]">
             <div class="flex items-center mb-[10px] text-[13px]">
-              <div class="mr-auto font-semibold opacity-50">Token</div>
-              <div class="text-desaturated-cyan">Balance: 0</div>
+              <div class="mr-auto font-semibold"
+                   :class="{'opacity-50': !connectWallet}">Token</div>
+              <div class="text-desaturated-cyan text-[11px]">Balance: {{ connectWallet?'0.220955':'0' }}</div>
             </div>
             <div class="w-full">
-              <button type="button" class="form-select w-full text-left flex items-center justify-start" @click="handleSelectToken">
+              <button type="button" class="form-select w-full text-left flex items-center justify-start" :disabled="!connectWallet"
+                      @click="handleSelectToken">
                 <span class="border-[#EAF1F3] border rounded-full h-[32px] w-[32px] min-w-[32px] flex justify-center items-center mr-[6px] bg-white" style="box-shadow: rgb(226, 241, 246) 0 1px 25px;">
                   <img class="w-[18px] h-[18px] object-contain object-center" :src="item.img" alt="" width="30" height="30">
                 </span>
@@ -105,17 +107,26 @@
 
           <div class="sm:flex-1 sm:px-[10px]">
             <div class="mb-[10px] text-[13px]">
-              <div class="font-semibold opacity-50">Amount</div>
+              <div class="font-semibold"
+              :class="{'opacity-50': !connectWallet}">Amount</div>
             </div>
-            <div class="w-full">
-              <input type="text" class="form-input w-full" placeholder="0">
+            <div class="w-full relative">
+              <input v-model="amount" type="number" class="form-input w-full"
+                     placeholder="0"
+                     :class="{'pr-[70px]': connectWallet}"
+                     :disabled="!connectWallet">
+              <button v-if="connectWallet" type="button" class="absolute rounded-tl-none rounded-bl-none right-0 top-0 form-input flex items-center justify-center text-magenta underline hover:no-underline"
+              @click="amount = '999999999'">
+                Max
+              </button>
             </div>
           </div>
 
         </div>
       </div>
 
-      <button class="btn btn-solana2 btn-block mt-[34px]">
+      <button class="btn btn-solana2 btn-block mt-[34px]"
+      :disabled="!connectWallet">
         Next
       </button>
     </div>
@@ -127,6 +138,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   data: () => ({
+    amount: '',
     item: {
       img: require('~/assets/img/icons/ray.svg'),
       label: 'Ray',

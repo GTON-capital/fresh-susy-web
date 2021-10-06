@@ -1,3 +1,17 @@
 .form-input, .form-textarea, .form-select, .form-multiselect {
-  @apply h-field px-[12px] rounded-[8px] border-[#BDDBDF] bg-white focus:ring-magenta focus:border-magenta;
+  @apply text-maastricht-blue placeholder-maastricht-blue h-field px-[12px] rounded-[8px] border-[#BDDBDF] bg-white focus:ring-magenta focus:border-magenta;
+
+  &:disabled, &.disabled {
+    @apply text-opacity-30 pointer-events-none placeholder-opacity-30;
+  }
 }
+
+/* stylelint-disable */
+.form-select {
+  @apply bg-chevron-magenta;
+
+  &:disabled, &.disabled {
+    @apply bg-chevron-magenta-muted;
+  }
+}
+/* stylelint-enable */

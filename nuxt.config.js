@@ -47,7 +47,7 @@ export default {
         property: "twitter:site"
       },
       {
-        content: shortDescription,
+        content: mainTitle,
         property: "twitter:title"
       },
       {

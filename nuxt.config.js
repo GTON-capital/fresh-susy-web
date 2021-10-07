@@ -85,10 +85,6 @@ export default {
       {
         name: "format-detection",
         content: "email=no"
-      },
-      {
-        name: "description",
-        content: shortDescription
       }
     ],
     link: [

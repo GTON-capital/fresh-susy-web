@@ -17,6 +17,9 @@ module.exports = {
       height: {
         field: '42px',
       },
+      minHeight: {
+        field: '42px',
+      },
       lineHeight: {
         field: '42px',
       },

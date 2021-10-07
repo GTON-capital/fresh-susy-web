@@ -16,6 +16,7 @@
     <vue-footer />
     <modals-connect-wallet />
     <modals-select-token />
+    <modals-transaction />
   </div>
 </template>
 

@@ -144,7 +144,7 @@
                      :disabled="!connectWallet">
               <button v-if="connectWallet" type="button"
                       class="absolute rounded-tl-none rounded-bl-none right-0 top-0 form-input flex items-center justify-center text-magenta underline hover:no-underline"
-                      @click="amount = '999999999'">
+                      @click="amount = '99'">
                 Max
               </button>
             </div>
@@ -176,14 +176,16 @@
               <img class="w-[18px] h-[18px] object-contain object-center" src="~/assets/img/icons/sol.svg" alt=""
                    width="30" height="30">
             </div>
-            Solana
+            <div class="text-[14px]">
+              Solana
+            </div>
           </div>
           <div class="w-[74px] text-center text-desaturated-cyan pt-4">
             <icon name="mono/double-arrow" class="fill-current text-[20px]"/>
           </div>
           <div class="flex flex-col items-center justify-start w-[60px]">
             <div
-              class="rounded-full bg-white border-[#EAF1F3] border flex items-center justify-center mr-[6px] h-[32px] w-[32px] min-w-[32px]"
+              class="rounded-full bg-white border-[#EAF1F3] border flex items-center justify-center h-[32px] w-[32px] min-w-[32px]"
               style="box-shadow: 0 1px 25px #E2F1F6;">
               <img class="w-[18px] h-[18px] object-center object-contain" src="~/assets/img/icons/poligon.svg" alt=""
                    width="30" height="30">
@@ -300,7 +302,7 @@ import Vue from 'vue'
 export default Vue.extend({
   data: () => ({
     step: '2',
-    amount: '9999',
+    amount: '99',
     item: {
       img: require('~/assets/img/icons/ray.svg'),
       label: 'RAY',

@@ -1,14 +1,28 @@
 export const state = () => ({
   exampleModals: {
     connectWallet: {
-      index: '1', // Индекс для перерисовки одного и того же меню
-      name: 'connect-wallet', // Уникальное название модального меню
+      index: '1', // Индекс для перерисовки одного и того же модального окна
+      name: 'connect-wallet', // Уникальное название модального окна
       data: {}, // Данные помещаемые в модальное окно
     },
     selectToken: {
-      index: '1', // Индекс для перерисовки одного и того же меню
-      name: 'select-token', // Уникальное название модального меню
-      data: {}, // Данные помещаемые в модальное окно
+      index: '1',
+      name: 'select-token',
+      data: {},
+    },
+    transaction: {
+      index: '1',
+      name: 'transaction',
+      data: {
+        amount: '99',
+        item: {
+          img: require('~/assets/img/icons/ray.svg'),
+          label: 'RAY',
+        },
+        step1: false,
+        step2: false,
+        step3: false,
+      },
     }
   },
   modals: [],

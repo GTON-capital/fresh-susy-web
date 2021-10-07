@@ -100,7 +100,7 @@ export default Vue.extend({
   data: () => ({
     total: 200,
     page: 1,
-    isMaxHeight: true,
+    isMaxHeight: false,
     isHorizontalScroll: false,
     cols: [
       {label: 'Token', width: '110px', index: 'token', type: 'text', withIcon: 'iconExampleFieldName'},
@@ -123,24 +123,10 @@ export default Vue.extend({
       {...exampleItem2},
       {...exampleItem1},
       {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
     ]
   }),
   mounted() {
-    this.isMaxHeight = innerWidth > 1030;
+    // this.isMaxHeight = innerWidth > 1030;
     this.isHorizontalScroll = innerWidth < 1280;
   }
 })

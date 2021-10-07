@@ -282,7 +282,8 @@
 
       </div>
 
-      <button class="btn btn-solana2 btn-block mt-[24px]">
+      <button class="btn btn-solana2 btn-block mt-[24px]"
+      @click="handleTransfer">
         Transfer
       </button>
 
@@ -301,8 +302,8 @@ import Vue from 'vue'
 
 export default Vue.extend({
   data: () => ({
-    step: '2',
-    amount: '99',
+    step: '1',
+    amount: '0',
     item: {
       img: require('~/assets/img/icons/ray.svg'),
       label: 'RAY',
@@ -310,25 +311,54 @@ export default Vue.extend({
     connectWallet: false
   }),
   methods: {
+    handleTransfer() {
+      // Deep copy object
+      const modal = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].transaction));
+
+      this.$store.commit('app/PUSH_MODAL', modal)
+
+      setTimeout(() => {
+        const data = JSON.parse(JSON.stringify(modal.data));
+        data.step1 = true;
+        this.$store.commit('app/SET_DATA_MODAL', {name: modal.name, index: modal.index, data})
+
+        setTimeout(() => {
+          const data = JSON.parse(JSON.stringify(modal.data));
+          data.step1 = true;
+          data.step2 = true;
+          this.$store.commit('app/SET_DATA_MODAL', {name: modal.name, index: modal.index, data})
+
+          setTimeout(() => {
+            const data = JSON.parse(JSON.stringify(modal.data));
+            data.step1 = true;
+            data.step2 = true;
+            data.step3 = true;
+            this.$store.commit('app/SET_DATA_MODAL', {name: modal.name, index: modal.index, data})
+          }, 500)
+
+        }, 1000)
+
+      }, 1500)
+    },
     handleSelectToken() {
       // Deep copy object
-      const selectToken = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].selectToken));
+      const modal = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].selectToken));
 
-      selectToken.data.callbackSelectToken = (item) => {
+      modal.data.callbackSelectToken = (item) => {
         this.item = item
         this.$store.commit('app/CLOSE_MODAL')
       }
-      this.$store.commit('app/PUSH_MODAL', selectToken)
+      this.$store.commit('app/PUSH_MODAL', modal)
     },
     handleConnectWallet() {
       // Deep copy object
-      const connectWallet = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].connectWallet));
+      const modal = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].connectWallet));
 
-      connectWallet.data.callbackConnect = () => {
+      modal.data.callbackConnect = () => {
         this.connectWallet = true
         this.$store.commit('app/CLOSE_MODAL')
       }
-      this.$store.commit('app/PUSH_MODAL', connectWallet)
+      this.$store.commit('app/PUSH_MODAL', modal)
     }
   }
 })

@@ -30,7 +30,7 @@ export const state = () => ({
     open: false,
     landingNavigation: [
       {
-        route: 'logs',
+        route: 'transfer',
         label: 'Launch APP',
       },
       {
@@ -94,6 +94,15 @@ export const mutations = {
   },
   CLOSE_MODAL(state) {
     state.modals.pop();
+  },
+  SET_DATA_MODAL(state, {name, index, data}) {
+    const modals = state.modals;
+    for (let i = 0; i < modals.length; i++) {
+      const modal = modals[i]
+      if(modal.name === name && modal.index === index){
+        modal.data = data
+      }
+    }
   }
 }
 

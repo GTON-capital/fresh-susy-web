@@ -1,52 +1,57 @@
 <template>
   <div class="logs-page container">
-    <div class="rounded-[18px] border-[#EAF1F3] border bg-white px-[20px] sm:px-[40px] relative z-10"
-         style="box-shadow: 0 1px 25px #E2F1F6;">
-
-
+    <div class="rounded-[18px] border-[#EAF1F3] border bg-white px-[20px] sm:px-[40px] relative z-10" style="box-shadow: 0 1px 25px #e2f1f6">
       <div class="logs-page__wrapper-table">
-        <div
-          class="absolute left-0 top-0 w-full h-[66px] bg-[#F3F9F9] z-[-1] rounded-tl-[18px] rounded-tr-[18px]"></div>
+        <div class="absolute left-0 top-0 w-full h-[66px] bg-[#F3F9F9] z-[-1] rounded-tl-[18px] rounded-tr-[18px]"></div>
 
-        <vue-scrolling-table class="logs-page__table" dead-area-color="#F3F9F9"
-                             :style="{maxHeight: isMaxHeight ? 'calc(100vh - 20rem)' : 'none'}" :scroll-vertical="isMaxHeight" :scroll-horizontal="isHorizontalScroll">
+        <vue-scrolling-table
+          class="logs-page__table"
+          dead-area-color="#F3F9F9"
+          :style="{ maxHeight: isMaxHeight ? 'calc(100vh - 20rem)' : 'none' }"
+          :scroll-vertical="isMaxHeight"
+          :scroll-horizontal="isHorizontalScroll"
+        >
           <template #thead>
             <tr>
-              <th v-for="(col, colKey) in cols"
-                  :key="colKey" class="logs-page__th"
-              :style="{
-                    width: col.width,
-                    minWidth: col.width,
-                    maxWidth: col.width,
-              }">{{ col.label }}
+              <th
+                v-for="(col, colKey) in cols"
+                :key="colKey"
+                class="logs-page__th"
+                :style="{
+                  width: col.width,
+                  minWidth: col.width,
+                  maxWidth: col.width
+                }"
+              >
+                {{ col.label }}
               </th>
             </tr>
           </template>
           <template #tbody>
-            <tr v-for="(item, itemKey) in items" :key="'row'+itemKey" class="logs-page__tr">
-              <td v-for="(col, colKey) in cols" :key="'col'+colKey"
-                  :style="{
-                    width: col.width,
-                    minWidth: col.width,
-                    maxWidth: col.width,
-              }" class="logs-page__td">
+            <tr v-for="(item, itemKey) in items" :key="'row' + itemKey" class="logs-page__tr">
+              <td
+                v-for="(col, colKey) in cols"
+                :key="'col' + colKey"
+                :style="{
+                  width: col.width,
+                  minWidth: col.width,
+                  maxWidth: col.width
+                }"
+                class="logs-page__td"
+              >
                 <span class="flex items-center min-h-[65px]">
-                  <template v-if="col.type === 'timestamp'">
-                    22.07.2020 <br>08:15:44
-                  </template>
-                    <template v-else>
-                      <span v-if="item[col.withIcon]"
-                            class="h-[32px] w-[32px] bg-white border-[#EAF1F3] border rounded-full inline-block flex justify-center items-center mr-[5px]">
-                      <img class="w-[17px] h-[17px] object-center object-contain" :src="item[col.withIcon]" alt="">
-                      </span>
-                      <a v-if="item[col.index] && col.type === 'copy'" href="javascript:void(0)"
-                      class="text-magenta no-underline hover:underline">
-                        {{ item[col.index] }}<icon name="mono/copy" class="ml-1 inline-block fill-current stroke-current" />
-                      </a>
-                      <span v-else-if="item[col.index]">
-                        {{ item[col.index] }}
-                      </span>
-                      <span v-else>-</span>
+                  <template v-if="col.type === 'timestamp'"> 22.07.2020 <br />08:15:44 </template>
+                  <template v-else>
+                    <span v-if="item[col.withIcon]" class="h-[32px] w-[32px] bg-white border-[#EAF1F3] border rounded-full inline-block flex justify-center items-center mr-[5px]">
+                      <img class="w-[17px] h-[17px] object-center object-contain" :src="item[col.withIcon]" alt="" />
+                    </span>
+                    <a v-if="item[col.index] && col.type === 'copy'" href="javascript:void(0)" class="text-magenta no-underline hover:underline">
+                      {{ item[col.index] }}<icon name="mono/copy" class="ml-1 inline-block fill-current stroke-current" />
+                    </a>
+                    <span v-else-if="item[col.index]">
+                      {{ item[col.index] }}
+                    </span>
+                    <span v-else>-</span>
                   </template>
                 </span>
               </td>
@@ -56,11 +61,8 @@
       </div>
 
       <div class="py-[26px] flex justify-center">
-
         <pagination v-model="page" :per-page="10" :total="total" />
-
       </div>
-
     </div>
   </div>
 </template>
@@ -79,8 +81,8 @@ const exampleItem1 = {
   lockingAddress: '3P9...4x',
   mintingAddress: '3P9...4x',
   timestamp: 1633332817,
-  iconExampleFieldName: require('~/assets/img/icons/gton.svg'),
-};
+  iconExampleFieldName: require('~/assets/img/icons/gton.svg')
+}
 
 const exampleItem2 = {
   token: 'SOL',
@@ -93,8 +95,8 @@ const exampleItem2 = {
   lockingAddress: '3P9...4x',
   mintingAddress: '3P9...4x',
   timestamp: 1633332817,
-  iconExampleFieldName: require('~/assets/img/icons/sol.svg'),
-};
+  iconExampleFieldName: require('~/assets/img/icons/sol.svg')
+}
 
 export default Vue.extend({
   data: () => ({
@@ -103,38 +105,28 @@ export default Vue.extend({
     isMaxHeight: false,
     isHorizontalScroll: false,
     cols: [
-      {label: 'Token', width: '110px', index: 'token', type: 'text', withIcon: 'iconExampleFieldName'},
-      {label: 'Amount', width: '80px', index: 'amount', type: 'text'},
-      {label: 'From Chain', width: '100px', index: 'fromChain', type: 'text'},
-      {label: 'Token address', width: '120px', index: 'tokenAddress1', type: 'copy'},
-      {label: 'To Chain', width: '100px', index: 'coChain', type: 'text'},
-      {label: 'Token address', width: '120px', index: 'tokenAddress2', type: 'copy'},
-      {label: 'Status', width: '100px', index: 'status', type: 'text'},
-      {label: 'Locking trx address', width: '110px', index: 'lockingAddress', type: 'copy'},
-      {label: 'Minting trx address', width: '110px', index: 'mintingAddress', type: 'copy'},
-      {label: 'Timestamp', width: '110px', index: 'timestamp', type: 'timestamp'},
+      { label: 'Token', width: '110px', index: 'token', type: 'text', withIcon: 'iconExampleFieldName' },
+      { label: 'Amount', width: '80px', index: 'amount', type: 'text' },
+      { label: 'From Chain', width: '100px', index: 'fromChain', type: 'text' },
+      { label: 'Token address', width: '120px', index: 'tokenAddress1', type: 'copy' },
+      { label: 'To Chain', width: '100px', index: 'coChain', type: 'text' },
+      { label: 'Token address', width: '120px', index: 'tokenAddress2', type: 'copy' },
+      { label: 'Status', width: '100px', index: 'status', type: 'text' },
+      { label: 'Locking trx address', width: '110px', index: 'lockingAddress', type: 'copy' },
+      { label: 'Minting trx address', width: '110px', index: 'mintingAddress', type: 'copy' },
+      { label: 'Timestamp', width: '110px', index: 'timestamp', type: 'timestamp' }
     ],
-    items: [
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-      {...exampleItem1},
-      {...exampleItem2},
-    ]
+    items: [{ ...exampleItem1 }, { ...exampleItem2 }, { ...exampleItem1 }, { ...exampleItem2 }, { ...exampleItem1 }, { ...exampleItem2 }, { ...exampleItem1 }, { ...exampleItem2 }]
   }),
   mounted() {
     // this.isMaxHeight = innerWidth > 1030;
-    this.isHorizontalScroll = innerWidth < 1280;
+    this.isHorizontalScroll = innerWidth < 1280
   }
 })
 </script>
 
 <style lang="postcss">
 .logs-page {
-
   &__wrapper-table {
     ::-webkit-scrollbar-track {
       border-radius: 8px;
@@ -174,14 +166,12 @@ export default Vue.extend({
   }
 
   .logs-page__tr {
-
     .logs-page__td {
       @apply border-t-0;
     }
   }
 
   .logs-page__tr:last-child {
-
     .logs-page__td {
       @apply border-b-0;
     }

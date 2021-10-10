@@ -1,10 +1,8 @@
 <template>
   <div class="container">
-
     <landing-first-block />
 
     <div class="lg:max-w-[670px] xl:max-w-[821px]">
-
       <landing-two-block />
 
       <landing-three-block />
@@ -12,9 +10,7 @@
       <landing-fourth-block />
 
       <landing-fifth-block />
-
     </div>
-
   </div>
 </template>
 

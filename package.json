@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@certusone/wormhole-sdk": "^0.0.5",
+    "@ledgerhq/hw-transport-webusb": "^6.7.0",
+    "@metamask/detect-provider": "^1.2.0",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dayjs": "^1.4.0",
     "@nuxtjs/google-gtag": "^1.0.4",
@@ -52,6 +54,7 @@
     "bs58": "^4.0.1",
     "core-js": "^3.15.1",
     "enquire.js": "^2.1.6",
+    "ethers": "^5.4.7",
     "jw-paginate": "^1.0.4",
     "lodash-es": "^4.17.21",
     "nuxt": "^2.15.7",

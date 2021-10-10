@@ -166,12 +166,16 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { attestFromSolana, CHAIN_ID_SOLANA, getEmitterAddressSolana, parseSequenceFromLogSolana } from '@certusone/wormhole-sdk'
-import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js'
+import detectEthereumProvider from '@metamask/detect-provider'
+
+import { attestFromSolana, CHAIN_ID_SOLANA, createWrappedOnEth, getEmitterAddressSolana, getSignedVAA, parseSequenceFromLogSolana } from '@certusone/wormhole-sdk'
+import { Connection, clusterApiUrl } from '@solana/web3.js'
 // import Anchor from '@project-serum/anchor'
 
 // const anchor = require('@project-serum/anchor')
 // const BN = anchor.BN
+
+
 
 export default Vue.extend({
   data: () => ({
@@ -203,6 +207,9 @@ export default Vue.extend({
       const SOL_BRIDGE_ADDRESS = ''
       const SOL_TOKEN_BRIDGE_ADDRESS = ''
 
+      const WORMHOLE_RPC_HOST = ''
+      const ETH_TOKEN_BRIDGE_ADDRESS = ''
+
       const payerAddress = ''
       const mintAddress = ''
 
@@ -211,6 +218,10 @@ export default Vue.extend({
       // @ts-ignore
       const wallet = await window.solana.connect()
       // resp.publicKey.toString()
+      const evmProvider = await detectEthereumProvider()
+
+      // @ts-ignore
+      const signer = evmProvider.getSigner()
 
       try {
         const transaction = await attestFromSolana(connection, SOL_BRIDGE_ADDRESS, SOL_TOKEN_BRIDGE_ADDRESS, payerAddress, mintAddress)
@@ -219,10 +230,12 @@ export default Vue.extend({
         await connection.confirmTransaction(txid)
         // Get the sequence number and emitter address required to fetch the signedVAA of our message
         const info = await connection.getTransaction(txid)
-        const sequence = parseSequenceFromLogSolana(info)
+        const sequence = parseSequenceFromLogSolana(info!)
         const emitterAddress = await getEmitterAddressSolana(SOL_TOKEN_BRIDGE_ADDRESS)
         // Fetch the signedVAA from the Wormhole Network (this may require retries while you wait for confirmation)
+
         const { signedVAA } = await getSignedVAA(WORMHOLE_RPC_HOST, CHAIN_ID_SOLANA, emitterAddress, sequence)
+        console.log({ signedVAA })
         // Create the wrapped token on Ethereum
         await createWrappedOnEth(ETH_TOKEN_BRIDGE_ADDRESS, signer, signedVAA)
       } catch (err) {
@@ -258,7 +271,7 @@ export default Vue.extend({
       // Deep copy object
       const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].selectToken))
 
-      modal.data.callbackSelectToken = (item) => {
+      modal.data.callbackSelectToken = (item: any) => {
         this.item = item
         this.$store.commit('app/CLOSE_MODAL')
       }

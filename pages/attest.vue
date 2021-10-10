@@ -171,11 +171,12 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import { attestFromSolana, CHAIN_ID_SOLANA, createWrappedOnEth, getEmitterAddressSolana, getSignedVAA, parseSequenceFromLogSolana } from '@certusone/wormhole-sdk'
 import { Connection, clusterApiUrl } from '@solana/web3.js'
 
+import { SOL_BRIDGE_ADDRESS, SOL_TOKEN_BRIDGE_ADDRESS, ETH_TOKEN_BRIDGE_ADDRESS } from '~/wh-utils/consts'
+import { ethers } from 'ethers'
+
 // import { FormValidationBuilder } from 'logic/misc/form'
 
-type AttestForm = {
-
-}
+type AttestForm = {}
 
 // const formValidatorBuilder: FormValidationBuilder<AttestForm> = (props) => {
 //   return function () {
@@ -184,22 +185,45 @@ type AttestForm = {
 //     return null
 //   }
 // }
+/**
+ * 
+windows98:wormhole-solana-polygon-bridge shamil$ spl-token create-token -- ./test-token.json 
+Creating token 7y6yTJB7yMkAQJzUDh8fX3L4VRiMLbVGfn8nHdu1pAwy
+Fee payer, CzHqpDSZKFf6w4Wu1D5YnYeV16rsGy6kdB6Rd7jccHhW, has insufficient balance: 0.0014716 required, 0 available
+windows98:wormhole-solana-polygon-bridge shamil$ solana balance
+solana 0 SOL
+windows98:wormhole-solana-polygon-bridge shamil$ solana airdrop 1
+Requesting airdrop of 1 SOL
+
+Signature: m3gQgusJqtE8Z7hFWWMiPBUpSYiKVaLqsztcAbV4gJTw44HUPQJ7mDJDWgBAcDG4YjWJnsY8UXSojMXudvqNkaM
+
+1 SOL
+windows98:wormhole-solana-polygon-bridge shamil$ spl-token create-token -- ./test-token.json 
+Creating token 7y6yTJB7yMkAQJzUDh8fX3L4VRiMLbVGfn8nHdu1pAwy
+Signature: 9x8AMLuPdNcWRjnnDdfzTjrqrDkGpQcUfFe8hRy1b6RMR9UkRy4fJWofxKjtPgJcsncbw37MNn7ctGVWiwJ4CLg
+ */
 
 type State = {
   form: AttestForm
 }
 
+const testEnv = {
+  tokenAccount: 'GfajnMyXRp3NeNh47ctQTjj9nSr6ZTS1SsjVnYa95iR9',
+  tokenOwner: 'CzHqpDSZKFf6w4Wu1D5YnYeV16rsGy6kdB6Rd7jccHhW',
+  tokenMint: '7y6yTJB7yMkAQJzUDh8fX3L4VRiMLbVGfn8nHdu1pAwy'
+}
+
 export default Vue.extend({
-  data (): State {
+  name: 'AttestPage',
+  data(): State {
     return {
-      // step: '1',
-      // amount: '0',
-      // item: {
-      //   img: require('~/assets/img/icons/ray.svg'),
-      //   label: 'RAY'
-      // },
-      // connectWallet: false
-      // form: 
+      step: '1',
+      amount: '0',
+      item: {
+        img: require('~/assets/img/icons/ray.svg'),
+        label: 'RAY'
+      },
+      connectWallet: false,
       form: {}
     }
   },
@@ -219,25 +243,32 @@ export default Vue.extend({
       // const network = 'https://dawn-nameless-bush.solana-mainnet.quiknode.pro/05c403fb121e8e3b4aa92e3aaed610d70ef2bfa9/'
 
       const connection = new Connection(network, 'confirmed')
+      console.log({ network })
+      // return
 
-      const SOL_BRIDGE_ADDRESS = ''
-      const SOL_TOKEN_BRIDGE_ADDRESS = ''
+      // const SOL_BRIDGE_ADDRESS = 'Brdguy7BmNB4qwEbcqqMbyV5CyJd2sxQNUn6NEpMSsUb'
+      // const SOL_TOKEN_BRIDGE_ADDRESS = ''
 
-      const WORMHOLE_RPC_HOST = ''
-      const ETH_TOKEN_BRIDGE_ADDRESS = ''
-
-      const payerAddress = ''
-      const mintAddress = ''
+      const WORMHOLE_RPC_HOST = 'http://207.154.207.157:8089'
+      // const ETH_TOKEN_BRIDGE_ADDRESS = ''
 
       // const wallet = getProvider()
 
       // @ts-ignore
       const wallet = await window.solana.connect()
       // resp.publicKey.toString()
-      const evmProvider = await detectEthereumProvider()
-
+      const detectedProvider = await detectEthereumProvider()
+      console.log({ detectedProvider })
+      const provider = new ethers.providers.Web3Provider(
+        // @ts-ignore
+        detectedProvider,
+        'any'
+      )
       // @ts-ignore
-      const signer = evmProvider.getSigner()
+      const signer = provider.getSigner()
+
+      const payerAddress = testEnv.tokenOwner
+      const mintAddress = testEnv.tokenMint
 
       try {
         const transaction = await attestFromSolana(connection, SOL_BRIDGE_ADDRESS, SOL_TOKEN_BRIDGE_ADDRESS, payerAddress, mintAddress)
@@ -284,14 +315,13 @@ export default Vue.extend({
       //   }, 1500)
     },
     handleSelectToken() {
-      // // Deep copy object
-      // const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].selectToken))
-
-      // modal.data.callbackSelectToken = (item: any) => {
-      //   this.item = item
-      //   this.$store.commit('app/CLOSE_MODAL')
-      // }
-      // this.$store.commit('app/PUSH_MODAL', modal)
+      // Deep copy object
+      const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].selectToken))
+      modal.data.callbackSelectToken = (item: any) => {
+        this.item = item
+        this.$store.commit('app/CLOSE_MODAL')
+      }
+      this.$store.commit('app/PUSH_MODAL', modal)
     },
     handleConnectWallet() {
       // Deep copy object

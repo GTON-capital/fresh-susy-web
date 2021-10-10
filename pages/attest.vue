@@ -170,35 +170,51 @@ import detectEthereumProvider from '@metamask/detect-provider'
 
 import { attestFromSolana, CHAIN_ID_SOLANA, createWrappedOnEth, getEmitterAddressSolana, getSignedVAA, parseSequenceFromLogSolana } from '@certusone/wormhole-sdk'
 import { Connection, clusterApiUrl } from '@solana/web3.js'
-// import Anchor from '@project-serum/anchor'
 
-// const anchor = require('@project-serum/anchor')
-// const BN = anchor.BN
+// import { FormValidationBuilder } from 'logic/misc/form'
 
+type AttestForm = {
 
+}
+
+// const formValidatorBuilder: FormValidationBuilder<AttestForm> = (props) => {
+//   return function () {
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const f = props
+//     return null
+//   }
+// }
+
+type State = {
+  form: AttestForm
+}
 
 export default Vue.extend({
-  data: () => ({
-    step: '1',
-    amount: '0',
-    item: {
-      img: require('~/assets/img/icons/ray.svg'),
-      label: 'RAY'
-    },
-    connectWallet: false
-  }),
+  data (): State {
+    return {
+      // step: '1',
+      // amount: '0',
+      // item: {
+      //   img: require('~/assets/img/icons/ray.svg'),
+      //   label: 'RAY'
+      // },
+      // connectWallet: false
+      // form: 
+      form: {}
+    }
+  },
   methods: {
     async handleAttest() {
-      const getProvider = () => {
-        if ('solana' in window) {
-          // @ts-ignore
-          const provider = window.solana
-          if (provider.isPhantom) {
-            return provider
-          }
-        }
-        window.open('https://phantom.app/', '_blank')
-      }
+      // const getProvider = () => {
+      //   if ('solana' in window) {
+      //     // @ts-ignore
+      //     const provider = window.solana
+      //     if (provider.isPhantom) {
+      //       return provider
+      //     }
+      //   }
+      //   window.open('https://phantom.app/', '_blank')
+      // }
       const network = clusterApiUrl('devnet')
       // const network = 'https://dawn-nameless-bush.solana-mainnet.quiknode.pro/05c403fb121e8e3b4aa92e3aaed610d70ef2bfa9/'
 
@@ -268,14 +284,14 @@ export default Vue.extend({
       //   }, 1500)
     },
     handleSelectToken() {
-      // Deep copy object
-      const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].selectToken))
+      // // Deep copy object
+      // const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].selectToken))
 
-      modal.data.callbackSelectToken = (item: any) => {
-        this.item = item
-        this.$store.commit('app/CLOSE_MODAL')
-      }
-      this.$store.commit('app/PUSH_MODAL', modal)
+      // modal.data.callbackSelectToken = (item: any) => {
+      //   this.item = item
+      //   this.$store.commit('app/CLOSE_MODAL')
+      // }
+      // this.$store.commit('app/PUSH_MODAL', modal)
     },
     handleConnectWallet() {
       // Deep copy object

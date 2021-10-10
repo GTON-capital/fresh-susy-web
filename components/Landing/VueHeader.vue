@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ComponentLink from "~/components/ComponentLink.vue";
+import ComponentLink from "../ComponentLink.vue";
 
 export default Vue.extend({
   components: {ComponentLink},

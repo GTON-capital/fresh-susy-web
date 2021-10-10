@@ -10,6 +10,8 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  ssr: false,
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: mainTitle,
@@ -120,6 +122,10 @@ export default {
     '@aceforth/nuxt-optimized-images',
     // https://github.com/fumeapp/nuxt-storm
     'nuxt-storm',
+    // https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    // https://typed-vuex.roe.dev
+    'nuxt-typed-vuex'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -132,7 +138,14 @@ export default {
     '@nuxtjs/pwa',
     // https://www.npmjs.com/package/@nuxtjs/svg-sprite
     '@nuxtjs/svg-sprite',
+    'nuxt-clipboard',
+    '@nuxtjs/dayjs',
+    '@nuxtjs/google-gtag'
   ],
+
+  'google-gtag': {
+    id: ''
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},

@@ -21,7 +21,7 @@
       <div class="flex-shrink-0 flex justify-between">
         <nuxt-link to="/" class="text-[46px]"
                    @click.native="toggleMenu">
-          <img src="~/assets/img/logo.svg" class="w-[1em] h-[1em]" alt="Susy" width="66" height="66">
+          <img src="~/assets/img/logo.svg" class="w-[1em] h-[1em]" alt="SuSy" width="66" height="66">
         </nuxt-link>
         <button type="button" class="mobile-menu__close bg-transparent border-none w-[52px] h-[52px] flex justify-center items-center -my-1" @click="toggleMenu">
           <icon name="mono/close2" class="text-[18px] fill-current stroke-current"/>

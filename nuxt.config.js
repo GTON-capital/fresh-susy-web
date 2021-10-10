@@ -1,4 +1,4 @@
-const mainTitle = "Susy - Seamless multichain transfers";
+const mainTitle = "SuSy - Seamless multichain transfers";
 
 const shortDescription = "SuSy is a multichain bridge leveraging the Wormhole protocol.";
 
@@ -37,7 +37,7 @@ export default {
         property: "og:url"
       },
       {
-        content: "Susy",
+        content: "SuSy",
         property: "og:site_name"
       },
       {
@@ -45,7 +45,7 @@ export default {
         content: previewImagePath
       },
       {
-        content: "Susy",
+        content: "SuSy",
         property: "twitter:site"
       },
       {

@@ -3,7 +3,7 @@
     <div class="container block sm:flex flex-row items-center">
       <div class="lg:w-[150px] flex sm:block justify-between mr-auto">
         <nuxt-link to="/" class="text-[46px] sm:text-[76px]">
-          <img src="~/assets/img/logo.svg" class="w-[1em] h-[1em]" alt="Susy" width="76" height="76">
+          <img src="~/assets/img/logo.svg" class="w-[1em] h-[1em]" alt="SuSy" width="76" height="76">
         </nuxt-link>
         <button type="button" class="bg-transparent border-none text-magenta hover:text-maastricht-blue sm:hidden -my-1"
                 :class="{'opacity-0': open}"

@@ -2,10 +2,10 @@ import { getterTree, mutationTree, actionTree } from 'typed-vuex'
 
 import { PublicKey, AccountInfo, ParsedAccountData } from '@solana/web3.js'
 
+import { cloneDeep } from 'lodash-es'
 import { NATIVE_SOL } from '@/utils/tokens'
 import { TOKEN_PROGRAM_ID } from '@/utils/ids'
 import { TokenAmount } from '@/utils/safe-math'
-import { cloneDeep } from 'lodash-es'
 import logger from '@/utils/logger'
 import { findAssociatedTokenAddress } from '@/utils/web3'
 

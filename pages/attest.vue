@@ -164,8 +164,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
+import { attestFromSolana, CHAIN_ID_SOLANA, getEmitterAddressSolana, parseSequenceFromLogSolana } from '@certusone/wormhole-sdk'
+import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js'
+// import Anchor from '@project-serum/anchor'
+
+// const anchor = require('@project-serum/anchor')
+// const BN = anchor.BN
 
 export default Vue.extend({
   data: () => ({
@@ -178,6 +184,53 @@ export default Vue.extend({
     connectWallet: false
   }),
   methods: {
+    async handleAttest() {
+      const getProvider = () => {
+        if ('solana' in window) {
+          // @ts-ignore
+          const provider = window.solana
+          if (provider.isPhantom) {
+            return provider
+          }
+        }
+        window.open('https://phantom.app/', '_blank')
+      }
+      const network = clusterApiUrl('devnet')
+      // const network = 'https://dawn-nameless-bush.solana-mainnet.quiknode.pro/05c403fb121e8e3b4aa92e3aaed610d70ef2bfa9/'
+
+      const connection = new Connection(network, 'confirmed')
+
+      const SOL_BRIDGE_ADDRESS = ''
+      const SOL_TOKEN_BRIDGE_ADDRESS = ''
+
+      const payerAddress = ''
+      const mintAddress = ''
+
+      // const wallet = getProvider()
+
+      // @ts-ignore
+      const wallet = await window.solana.connect()
+      // resp.publicKey.toString()
+
+      try {
+        const transaction = await attestFromSolana(connection, SOL_BRIDGE_ADDRESS, SOL_TOKEN_BRIDGE_ADDRESS, payerAddress, mintAddress)
+        const signed = await wallet.signTransaction(transaction)
+        const txid = await connection.sendRawTransaction(signed.serialize())
+        await connection.confirmTransaction(txid)
+        // Get the sequence number and emitter address required to fetch the signedVAA of our message
+        const info = await connection.getTransaction(txid)
+        const sequence = parseSequenceFromLogSolana(info)
+        const emitterAddress = await getEmitterAddressSolana(SOL_TOKEN_BRIDGE_ADDRESS)
+        // Fetch the signedVAA from the Wormhole Network (this may require retries while you wait for confirmation)
+        const { signedVAA } = await getSignedVAA(WORMHOLE_RPC_HOST, CHAIN_ID_SOLANA, emitterAddress, sequence)
+        // Create the wrapped token on Ethereum
+        await createWrappedOnEth(ETH_TOKEN_BRIDGE_ADDRESS, signer, signedVAA)
+      } catch (err) {
+        console.log({ err })
+      }
+
+      console.log('attest passed')
+    },
     handleTransfer() {
       //   // Deep copy object
       //   const modal = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].transaction));

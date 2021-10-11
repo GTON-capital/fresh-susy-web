@@ -94,3 +94,6 @@ sw.*
 storybook-static
 
 .components.gen.js
+
+
+.vscode

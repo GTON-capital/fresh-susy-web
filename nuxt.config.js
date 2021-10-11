@@ -1,4 +1,4 @@
-const mainTitle = "Susy - Seamless multichain transfers";
+const mainTitle = "SuSy - Seamless multichain transfers";
 
 const shortDescription = "SuSy is a multichain bridge leveraging the Wormhole protocol.";
 
@@ -9,6 +9,8 @@ const previewImagePath = url+"/preview.jpg";
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+
+  ssr: false,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -35,7 +37,7 @@ export default {
         property: "og:url"
       },
       {
-        content: "Susy",
+        content: "SuSy",
         property: "og:site_name"
       },
       {
@@ -43,7 +45,7 @@ export default {
         content: previewImagePath
       },
       {
-        content: "Susy",
+        content: "SuSy",
         property: "twitter:site"
       },
       {

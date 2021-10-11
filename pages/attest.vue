@@ -5,7 +5,7 @@
       class="rounded-[18px] border-[#EAF1F3] border bg-white px-[20px] sm:px-[40px] md:px-[70px] py-[18px] sm:pt-[38px] sm:pb-[60px] max-w-card mx-auto"
       style="box-shadow: 0 1px 25px #e2f1f6"
     >
-      <div class="mb-[28px] font-semibold text-[28px] leading-none text-center font-heading">Attest</div>
+      <div class="mb-[28px] font-semibold text-[28px] leading-none text-center font-heading">Attest from Solana to EVM</div>
 
       <!-- <div
         class="

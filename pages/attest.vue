@@ -15,7 +15,7 @@
         "
       > -->
       <div class="">
-        <div class="w-full">
+        <!-- <div class="w-full">
           <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Origin Chain</div>
           <button type="button" class="form-select w-full text-left flex items-center justify-start" @click="handleSelectToken">
             <span
@@ -26,14 +26,50 @@
             </span>
             <span class="text-[14px]">{{ item.label }}</span>
           </button>
-        </div>
+        </div> -->
         <div class="mb-[14px] mt-[14px]">
-          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Origin Asset ID</div>
+          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Connection Commitment</div>
           <div class="w-full relative">
-            <input type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
+            <input v-model="form.connectCommitment" type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
           </div>
         </div>
-        <div class="w-full">
+        <div class="mb-[14px] mt-[14px]">
+          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Wormhole RPC</div>
+          <div class="w-full relative">
+            <input v-model="form.wormholeRPC" type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
+          </div>
+        </div>
+        <div class="mb-[14px] mt-[14px]">
+          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Solana Token Bridge Address</div>
+          <div class="w-full relative">
+            <input v-model="form.solTokenBridgeAddress" type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
+          </div>
+        </div>
+        <div class="mb-[14px] mt-[14px]">
+          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Solana Bridge Address</div>
+          <div class="w-full relative">
+            <input v-model="form.solBridgeAddress" type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
+          </div>
+        </div>
+        <div class="mb-[14px] mt-[14px]">
+          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">ETH Token Bridge Address</div>
+          <div class="w-full relative">
+            <input v-model="form.ethTokenBridgeAddress" type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
+          </div>
+        </div>
+        <div class="mb-[14px] mt-[14px]">
+          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Payeer Address</div>
+          <div class="w-full relative">
+            <input v-model="form.payerAddress" type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
+          </div>
+        </div>
+        <div class="mb-[14px] mt-[14px]">
+          <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Token Mint</div>
+          <div class="w-full relative">
+            <input v-model="form.tokenMint" type="text" class="form-input w-full" placeholder="" :class="{ 'pr-[70px]': true }" />
+          </div>
+        </div>
+        <!-- <div class="w-full">
           <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">Destination Chain</div>
           <button type="button" class="form-select w-full text-left flex items-center justify-start" @click="handleSelectToken">
             <span
@@ -44,7 +80,7 @@
             </span>
             <span class="text-[14px]">{{ item.label }}</span>
           </button>
-        </div>
+        </div> -->
         <!-- <div class="mb-[14px] mt-[14px]">
           <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">
             
@@ -167,16 +203,28 @@
 <script lang="ts">
 import Vue from 'vue'
 import detectEthereumProvider from '@metamask/detect-provider'
+// import { isNil } from 'lodash-es'
 
 import { attestFromSolana, CHAIN_ID_SOLANA, createWrappedOnEth, getEmitterAddressSolana, getSignedVAA, parseSequenceFromLogSolana } from '@certusone/wormhole-sdk'
-import { Connection, clusterApiUrl } from '@solana/web3.js'
+// eslint-disable-next-line import/named
+import { Connection, clusterApiUrl, Commitment } from '@solana/web3.js'
 
-import { SOL_BRIDGE_ADDRESS, SOL_TOKEN_BRIDGE_ADDRESS, ETH_TOKEN_BRIDGE_ADDRESS } from '~/wh-utils/consts'
 import { ethers } from 'ethers'
+import { SOL_BRIDGE_ADDRESS, SOL_TOKEN_BRIDGE_ADDRESS, ETH_TOKEN_BRIDGE_ADDRESS } from '~/wh-utils/consts'
 
 // import { FormValidationBuilder } from 'logic/misc/form'
 
-type AttestForm = {}
+type AttestPayload = {
+  wormholeRPC: string
+  solBridgeAddress: string
+  solTokenBridgeAddress: string
+  ethTokenBridgeAddress: string
+  payerAddress?: string
+  tokenMint?: string
+  connectCommitment: Commitment
+}
+
+type AttestForm = {} & AttestPayload
 
 // const formValidatorBuilder: FormValidationBuilder<AttestForm> = (props) => {
 //   return function () {
@@ -204,14 +252,19 @@ Signature: 9x8AMLuPdNcWRjnnDdfzTjrqrDkGpQcUfFe8hRy1b6RMR9UkRy4fJWofxKjtPgJcsncbw
  */
 
 type State = {
+  step: string
+  amount: string
   form: AttestForm
+  item: any
+  connectWallet: boolean
 }
 
-const testEnv = {
-  tokenAccount: 'GfajnMyXRp3NeNh47ctQTjj9nSr6ZTS1SsjVnYa95iR9',
-  tokenOwner: 'CzHqpDSZKFf6w4Wu1D5YnYeV16rsGy6kdB6Rd7jccHhW',
-  tokenMint: '7y6yTJB7yMkAQJzUDh8fX3L4VRiMLbVGfn8nHdu1pAwy'
-}
+// const testEnv = {
+//   tokenAccount: 'GfajnMyXRp3NeNh47ctQTjj9nSr6ZTS1SsjVnYa95iR9',
+//   tokenOwner: 'CzHqpDSZKFf6w4Wu1D5YnYeV16rsGy6kdB6Rd7jccHhW',
+//   tokenMint: '7y6yTJB7yMkAQJzUDh8fX3L4VRiMLbVGfn8nHdu1pAwy'
+// }
+const WORMHOLE_RPC_HOST = 'http://207.154.207.157:8089'
 
 export default Vue.extend({
   name: 'AttestPage',
@@ -224,41 +277,31 @@ export default Vue.extend({
         label: 'RAY'
       },
       connectWallet: false,
-      form: {}
+      form: {
+        connectCommitment: 'finalized',
+        wormholeRPC: WORMHOLE_RPC_HOST,
+        solBridgeAddress: SOL_BRIDGE_ADDRESS,
+        solTokenBridgeAddress: SOL_TOKEN_BRIDGE_ADDRESS,
+        ethTokenBridgeAddress: ETH_TOKEN_BRIDGE_ADDRESS
+      }
     }
   },
   methods: {
     async handleAttest() {
-      // const getProvider = () => {
-      //   if ('solana' in window) {
-      //     // @ts-ignore
-      //     const provider = window.solana
-      //     if (provider.isPhantom) {
-      //       return provider
-      //     }
-      //   }
-      //   window.open('https://phantom.app/', '_blank')
-      // }
+      const { form } = this
+
       const network = clusterApiUrl('devnet')
       // const network = 'https://dawn-nameless-bush.solana-mainnet.quiknode.pro/05c403fb121e8e3b4aa92e3aaed610d70ef2bfa9/'
 
-      const connection = new Connection(network, 'confirmed')
+      const connection = new Connection(network, form.connectCommitment)
       console.log({ network })
-      // return
-
-      // const SOL_BRIDGE_ADDRESS = 'Brdguy7BmNB4qwEbcqqMbyV5CyJd2sxQNUn6NEpMSsUb'
-      // const SOL_TOKEN_BRIDGE_ADDRESS = ''
-
-      const WORMHOLE_RPC_HOST = 'http://207.154.207.157:8089'
-      // const ETH_TOKEN_BRIDGE_ADDRESS = ''
-
-      // const wallet = getProvider()
 
       // @ts-ignore
       const wallet = await window.solana.connect()
-      // resp.publicKey.toString()
       const detectedProvider = await detectEthereumProvider()
+
       console.log({ detectedProvider })
+
       const provider = new ethers.providers.Web3Provider(
         // @ts-ignore
         detectedProvider,
@@ -267,29 +310,33 @@ export default Vue.extend({
       // @ts-ignore
       const signer = provider.getSigner()
 
-      const payerAddress = testEnv.tokenOwner
-      const mintAddress = testEnv.tokenMint
-
       try {
-        const transaction = await attestFromSolana(connection, SOL_BRIDGE_ADDRESS, SOL_TOKEN_BRIDGE_ADDRESS, payerAddress, mintAddress)
+        // const transaction = await attestFromSolana(connection, form.solBridgeAddress, form.solTokenBridgeAddress, payerAddress, mintAddress)
+        const transaction = await attestFromSolana(connection, form.solBridgeAddress, form.solTokenBridgeAddress, form.payerAddress!, form.tokenMint!)
         const signed = await wallet.signTransaction(transaction)
         const txid = await connection.sendRawTransaction(signed.serialize())
-        await connection.confirmTransaction(txid)
+
+        const solanaAttestRes = await connection.confirmTransaction(txid)
+        console.log({ solanaAttestRes })
         // Get the sequence number and emitter address required to fetch the signedVAA of our message
         const info = await connection.getTransaction(txid)
         const sequence = parseSequenceFromLogSolana(info!)
-        const emitterAddress = await getEmitterAddressSolana(SOL_TOKEN_BRIDGE_ADDRESS)
-        // Fetch the signedVAA from the Wormhole Network (this may require retries while you wait for confirmation)
 
-        const { signedVAA } = await getSignedVAA(WORMHOLE_RPC_HOST, CHAIN_ID_SOLANA, emitterAddress, sequence)
-        console.log({ signedVAA })
+        const emitterAddress = await getEmitterAddressSolana(form.solTokenBridgeAddress)
+
+        // const { signedVAA } = await getSignedVAA(WORMHOLE_RPC_HOST, CHAIN_ID_SOLANA, emitterAddress, sequence)
+        const { signedVAA } = await getSignedVAA(form.wormholeRPC, CHAIN_ID_SOLANA, emitterAddress, sequence)
+        console.log({ signedVAA, emitterAddress })
         // Create the wrapped token on Ethereum
-        await createWrappedOnEth(ETH_TOKEN_BRIDGE_ADDRESS, signer, signedVAA)
+        // await createWrappedOnEth(ETH_TOKEN_BRIDGE_ADDRESS, signer, signedVAA)
+        const resp = await createWrappedOnEth(form.ethTokenBridgeAddress, signer, signedVAA)
+        console.log({ resp })
+
+        console.log('attest passed')
       } catch (err) {
         console.log({ err })
+        console.log('attest failed')
       }
-
-      console.log('attest passed')
     },
     handleTransfer() {
       //   // Deep copy object

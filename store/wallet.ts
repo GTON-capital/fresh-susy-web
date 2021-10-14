@@ -1,170 +1,100 @@
-import { getterTree, mutationTree, actionTree } from 'typed-vuex'
-
-import { PublicKey, AccountInfo, ParsedAccountData } from '@solana/web3.js'
-
-import { cloneDeep } from 'lodash-es'
-import { NATIVE_SOL } from '@/utils/tokens'
-import { TOKEN_PROGRAM_ID } from '@/utils/ids'
-import { TokenAmount } from '@/utils/safe-math'
-import logger from '@/utils/logger'
-import { findAssociatedTokenAddress } from '@/utils/web3'
-
-const AUTO_REFRESH_TIME = 60
-
-export const state = () => ({
-  initialized: false,
-  loading: false,
-  modalShow: false,
-
-  autoRefreshTime: AUTO_REFRESH_TIME,
-  countdown: 0,
-  lastSubBlock: 0,
-
-  connected: false,
-  address: '',
-
-  tokenAccounts: {},
-  auxiliaryTokenAccounts: [] as Array<{ pubkey: PublicKey; account: AccountInfo<ParsedAccountData> }>
-})
-
-export const getters = getterTree(state, {})
-
-export const mutations = mutationTree(state, {
-  setModal(state, show: boolean) {
-    state.modalShow = show
-  },
-
-  setConnected(state, address: string) {
-    state.connected = true
-    state.address = address
-  },
-
-  setDisconnected(state) {
-    state.connected = false
-    state.address = ''
-  },
-
-  setInitialized(state) {
-    state.initialized = true
-  },
-
-  setLoading(state, loading: boolean) {
-    if (loading) {
-      state.countdown = AUTO_REFRESH_TIME
-    }
-
-    state.loading = loading
-
-    if (!loading) {
-      state.countdown = 0
-    }
-  },
-
-  setTokenAccounts(state, tokenAccounts: any) {
-    state.tokenAccounts = cloneDeep(tokenAccounts)
-  },
-
-  setAuxiliaryTokenAccounts(
-    state,
-    auxiliaryTokenAccounts: Array<{ pubkey: PublicKey; account: AccountInfo<ParsedAccountData> }>
-  ) {
-    state.auxiliaryTokenAccounts = cloneDeep(auxiliaryTokenAccounts)
-  },
-
-  setCountdown(state, countdown: number) {
-    state.countdown = countdown
-  },
-
-  setLastSubBlock(state, lastSubBlock: number) {
-    state.lastSubBlock = lastSubBlock
-  }
-})
-
-export const actions = actionTree(
-  { state, getters, mutations },
-  {
-    openModal({ commit }) {
-      commit('setModal', true)
-    },
-
-    closeModal({ commit }) {
-      return new Promise((resolve) => {
-        commit('setModal', false)
-        setTimeout(() => {
-          resolve(true)
-        }, 500)
-      })
-    },
-
-    getTokenAccounts({ commit }) {
-      const conn = this.$web3
-      const wallet = (this as any)._vm.$wallet
-
-      if (wallet && wallet.connected) {
-        commit('setLoading', true)
-
-        conn
-          .getParsedTokenAccountsByOwner(
-            wallet.publicKey,
-            {
-              programId: TOKEN_PROGRAM_ID
-            },
-            'confirmed'
-          )
-          .then(async (parsedTokenAccounts) => {
-            const tokenAccounts: any = {}
-            const auxiliaryTokenAccounts: Array<{ pubkey: PublicKey; account: AccountInfo<ParsedAccountData> }> = []
-
-            for (const tokenAccountInfo of parsedTokenAccounts.value) {
-              const tokenAccountPubkey = tokenAccountInfo.pubkey
-              const tokenAccountAddress = tokenAccountPubkey.toBase58()
-              const parsedInfo = tokenAccountInfo.account.data.parsed.info
-              const mintAddress = parsedInfo.mint
-              const balance = new TokenAmount(parsedInfo.tokenAmount.amount, parsedInfo.tokenAmount.decimals)
-
-              const ata = await findAssociatedTokenAddress(wallet.publicKey, new PublicKey(mintAddress))
-
-              if (ata.equals(tokenAccountPubkey)) {
-                tokenAccounts[mintAddress] = {
-                  tokenAccountAddress,
-                  balance
-                }
-              } else if (parsedInfo.tokenAmount.uiAmount > 0) {
-                auxiliaryTokenAccounts.push(tokenAccountInfo)
-              }
-            }
-
-            const solBalance = await conn.getBalance(wallet.publicKey, 'confirmed')
-            tokenAccounts[NATIVE_SOL.mintAddress] = {
-              tokenAccountAddress: wallet.publicKey.toBase58(),
-              balance: new TokenAmount(solBalance, NATIVE_SOL.decimals)
-            }
-
-            commit('setAuxiliaryTokenAccounts', auxiliaryTokenAccounts)
-            commit('setTokenAccounts', tokenAccounts)
-            logger('Wallet TokenAccounts updated')
-          })
-          .catch()
-          .finally(() => {
-            commit('setInitialized')
-            commit('setLoading', false)
-          })
-      }
-    }
-  }
-)
-
+import ethers from 'ethers'
+import { WalletAdapter } from '../logic/wallet-adapters'
 
 export enum WalletProvider {
-  Metamask = "metamask",
-  WavesKeeper = "keeper",
-  MathWallet = "mathwallet",
-  Phantom = "phantom",
+  Metamask = 'metamask',
+  Phantom = 'phantom'
 }
 
-// export type WalletState = Wallets
+export interface ExtensionWallet {
+  wallet: {
+    id: string
+    label: string
+    icon: string
+  }
+  provider: WalletProvider
+  isConnected: boolean
+  label: string
+  address?: string
+  // value?: string
+  // getWalletAdapter?: () => WalletAdapter
+  walletAdapter?: WalletAdapter
+  web3Adapter?: ethers.providers.Web3Provider
+  // checked?: boolean
+  // instructionBuilder?: IBPort.InstructionBuilder
+  // invoker?: Ports.Invoker
+}
+
+export type Wallets = {
+  [x: string]: ExtensionWallet
+  metamask: ExtensionWallet
+  phantom: ExtensionWallet
+}
+
+export type WalletState = Wallets
 
 export const walletSupportsSolana = (provider: WalletProvider): boolean => {
   // return [WalletProvider.MathWallet, WalletProvider.Phantom].includes(provider)
   return [WalletProvider.Phantom].includes(provider)
 }
+
+export const state = (): WalletState => {
+  return {
+    [WalletProvider.Metamask]: {
+      wallet: {
+        id: '1-0',
+        label: 'Metamask',
+        icon: '/img/icons/metamask.svg'
+      },
+      provider: WalletProvider.Metamask,
+      isConnected: false,
+      label: 'Connect with Metamask'
+    },
+    [WalletProvider.Phantom]: {
+      wallet: {
+        id: '3-0',
+        label: 'Phantom',
+        icon: '/img/icons/phantom.svg'
+      },
+      provider: WalletProvider.Phantom,
+      isConnected: false,
+      label: 'Connect with Phantom'
+    }
+  }
+}
+
+export const actions = {}
+
+export const mutations = {
+  updateWalletData(
+    state: WalletState,
+    {
+      provider,
+      body
+    }: {
+      provider: WalletProvider
+      body: Partial<ExtensionWallet>
+    }
+  ) {
+    for (const wallet of Object.keys(state)) {
+      // state[wallet]!.checked = false
+
+      if (provider === state[wallet]!.provider) {
+        state[wallet] = {
+          ...state[wallet],
+          ...body
+        }
+      }
+    }
+  }
+}
+
+// export const getters = {
+//   currentWallet: (state: WalletState): ExtensionWallet | undefined => {
+//     for (const wallet of Object.keys(state)) {
+//       if (state[wallet]!.checked) {
+//         return state[wallet]
+//       }
+//     }
+//   }
+// }

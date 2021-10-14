@@ -75,7 +75,7 @@
         <div class="mt-[24px] mb-[34px] bg-[#BDDBDF] h-[1px] w-full hidden sm:block"></div>
       </template>
       <template v-else>
-        <button class="btn btn-outline-solana2 btn-block mt-4" @click="handleConnectWallet">Connect wallet</button>
+        <button class="btn btn-outline-solana2 btn-block mt-4" @click="handleConnectWallet">Connect wallets</button>
       </template>
 
       <div class="mt-[14px] bg-[#BDDBDF] h-[1px] w-full sm:hidden"></div>
@@ -234,7 +234,9 @@ export default Vue.extend({
       img: require('~/assets/img/icons/ray.svg'),
       label: 'RAY'
     },
-    connectWallet: false
+    connectWallet: false,
+    metamaskConnected: false,
+    phantomConnected: false
   }),
   methods: {
     handleTransfer() {

@@ -15,6 +15,7 @@ export interface ChainInfo {
   id: ChainId
   name: string
 }
+
 export const CHAINS =
   CLUSTER === 'mainnet'
     ? [

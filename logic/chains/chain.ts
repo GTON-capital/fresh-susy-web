@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { WalletProvider } from "../../store/wallet"
+import { WalletProvider } from "../../store/n_wallet"
 
 export type Chain = { id: string; chainId?: number; label: string; icon: string; walletProviders: WalletProvider[]; nodeURL?: string }
 

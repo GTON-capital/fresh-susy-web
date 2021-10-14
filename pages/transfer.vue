@@ -15,10 +15,9 @@
             </div>
 
             <div class="ring-[#BDDBDF] ring-inset ring-1 w-full h-field bg-white rounded-[8px] py-[4px] px-[12px] flex items-center justify-start">
-              <div class="rounded-full bg-white border-[#EAF1F3] border flex items-center justify-center mr-[6px] h-[32px] w-[32px] min-w-[32px]" style="box-shadow: 0 1px 25px #e2f1f6">
-                <img class="w-[18px] h-[18px] object-center object-contain" src="~/assets/img/icons/sol.svg" alt="" width="30" height="30" />
-              </div>
-              <div class="text-[14px]">Solana</div>
+              <img class="w-[32px] h-[32px] object-center object-contain mr-[8px]" :src="chainsCfg.origin.icon" alt="" width="32" height="32" />
+
+              <div class="text-[14px]">{{ chainsCfg.origin.label }}</div>
             </div>
           </div>
 
@@ -33,10 +32,9 @@
               <div class="font-semibold">Destination</div>
             </div>
             <div class="ring-[#BDDBDF] ring-inset ring-1 w-full h-field bg-white rounded-[8px] py-[4px] px-[12px] flex items-center justify-start">
-              <div class="rounded-full bg-white border-[#EAF1F3] border flex items-center justify-center mr-[6px] h-[32px] w-[32px] min-w-[32px]" style="box-shadow: 0 1px 25px #e2f1f6">
-                <img class="w-[18px] h-[18px] object-center object-contain" src="~/assets/img/icons/poligon.svg" alt="" width="30" height="30" />
-              </div>
-              <div class="text-[14px]">Polygon</div>
+              <img class="w-[32px] h-[32px] object-center object-contain mr-[8px]" :src="chainsCfg.dst.icon" alt="" width="32" height="32" />
+
+              <div class="text-[14px]">{{ chainsCfg.dst.label }}</div>
             </div>
           </div>
         </div>
@@ -160,12 +158,12 @@
 
         <div class="mb-[14px] sm:mb-[20px]">
           <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">From address</div>
-          <div class="max-w-full whitespace-nowrap overflow-hidden text-[14px]">0xEA3ed91a668B6a56751729016EBafc214dFBeB65</div>
+          <div class="max-w-full whitespace-nowrap overflow-hidden text-[14px]">{{ originAddress }}</div>
         </div>
 
         <div class="mb-[14px] sm:mb-[20px]">
           <div class="text-[13px] font-semibold mb-[8px] sm:mb-[10px]">To address</div>
-          <div class="max-w-full whitespace-nowrap overflow-hidden text-[14px]">3PAASSqnygiyYoQuqmXpwaSUJmRkqytwPaw</div>
+          <div class="max-w-full whitespace-nowrap overflow-hidden text-[14px]">{{ dstAddress }}</div>
         </div>
 
         <div class="mb-[14px] sm:mb-[20px]">
@@ -234,12 +232,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { isNil } from 'lodash-es'
 
 import { AvailableTokens, Token } from '~/logic/chains/token'
 import { Chain } from '~/logic/chains/chain'
 import { WalletProvider } from '~/store/wallet'
-import { Wallet } from '@ethersproject/wallet'
 
 type EnhancedChain = {
   address?: string
@@ -310,19 +306,6 @@ export default Vue.extend<State>({
     },
     chainsCfg(): ChainsCfg {
       const { origin, dst } = this.transfer
-
-      // if (!isNil(this.addressPair)) {
-      //   const populate = (ch: EnhancedChain, addresses: [string, string], prs: [WalletProvider, WalletProvider]) => {
-      //     if (chainSupportsProvider(ch, prs)) {
-      //       return addresses[0]
-      //     } else {
-      //       return addresses[1]
-      //     }
-      //   }
-
-      //   origin.address = populate(origin, this.addressPair, this.wpsPair)
-      //   dst.address = populate(dst, this.addressPair, this.wpsPair)
-      // }
 
       const directed = () => {
         if (this.isTransferDirect) {

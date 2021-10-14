@@ -89,12 +89,15 @@ export const mutations = {
   }
 }
 
-// export const getters = {
-//   currentWallet: (state: WalletState): ExtensionWallet | undefined => {
-//     for (const wallet of Object.keys(state)) {
-//       if (state[wallet]!.checked) {
-//         return state[wallet]
-//       }
-//     }
-//   }
-// }
+export const getters = {
+  bothWalletsConnected: (state: WalletState): boolean => {
+    return state.metamask.isConnected && state.phantom.isConnected
+  }
+  // currentWallet: (state: WalletState): ExtensionWallet | undefined => {
+  //   for (const wallet of Object.keys(state)) {
+  //     if (state[wallet]!.checked) {
+  //       return state[wallet]
+  //     }
+  //   }
+  // }
+}

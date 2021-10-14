@@ -15,19 +15,6 @@ export interface ChainBridgeConfig {
   destinationPort: string
 }
 
-export type Token = {
-  ticker: string
-  label: string
-  // labelWrapped?: string
-  icon: string
-  // iconWrapped?: string
-  bg: string
-  // decimals: number
-  // assetId: string
-  ERC20?: string
-  // bridge?: GatewayBridge[]
-}
-
 export class GatewayBridge {
   origin: Chain
   destination: Chain
@@ -66,19 +53,39 @@ export const pickBridgeGateway = (bridgeList: GatewayBridge[], origin: Chain, de
   return null
 }
 
+export class MultichainGateway {
+  origin: Chain
+  destination: Chain[]
+
+  constructor({ origin, destination }: { origin: Chain; destination: Chain[] }) {
+    this.origin = origin
+    this.destination = destination
+  }
+
+  // consumeDirection(from: Chain, to: Chain) {
+    
+  // }
+}
+
+export type Token = {
+  ticker: string
+  label: string
+  icon: string
+  bg: string
+  gateway: MultichainGateway
+}
+
 export const AvailableTokens: Record<string, Token> = {
-  GTON: {
-    ticker: 'GTON',
-    label: 'Graviton',
-    bg: 'black',
-    icon: '/img/icons/tokens/GTON.svg',
-  },
   SUSY: {
     ticker: 'SUSY',
     label: 'SuSy Token',
     bg: 'black',
     icon: '/img/icons/tokens/SUSY.svg',
-  },
+    gateway: new MultichainGateway({
+      origin: AvailableChains.Solana,
+      destination: [AvailableChains.BSC, AvailableChains.Fantom, AvailableChains.Polygon]
+    })
+  }
 }
 
 export function formLinkForChain(chain: Chain, address: string): string {
@@ -89,8 +96,6 @@ export function formLinkForChain(chain: Chain, address: string): string {
       return `https://cchain.explorer.avax.network/address/${address}#tokentxns`
     case AvailableChains.Ethereum.id:
       return `https://etherscan.io/address/${address}#tokentxns`
-    case AvailableChains.Waves.id:
-      return `https://wavesexplorer.com/address/${address}`
     case AvailableChains.Heco.id:
       return `https://hecoinfo.com/address/${address}#tokentxns`
     case AvailableChains.Fantom.id:
@@ -105,7 +110,6 @@ export function formLinkForChain(chain: Chain, address: string): string {
 export function getAvailableTokens(): Token[] {
   return [AvailableTokens.GTONMainnet]
 }
-
 
 export function grabSolanaUserTokens(): string[] {
   return []

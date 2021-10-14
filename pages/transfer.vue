@@ -23,7 +23,7 @@
           </div>
 
           <div class="mb-[5px] sm:mb-0 sm:flex-initial sm:px-[9px] flex items-end justify-end">
-            <div class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-field flex items-center justify-center bg-white">
+            <div @click="inverseTransferDirection" class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-field flex items-center justify-center bg-white">
               <icon name="mono/arrow-fold" class="fill-current text-desaturated-cyan text-[12px] rotate-90 sm:rotate-0" />
             </div>
           </div>
@@ -42,36 +42,45 @@
         </div>
       </div>
 
-      <template v-if="connectWallet">
+      <template v-if="bothWalletsConnected">
         <div class="mt-[14px] sm:flex sm:flex-wrap sm:mx-[-10px] sm:mt-4">
           <div class="mb-[14px] sm:mb-0 sm:flex-1 sm:px-[10px]">
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">From address</div>
             </div>
             <div class="w-full relative">
-              <input type="text" class="form-input w-full bg-[#F3F9F9] border-[#F3F9F9] pr-[50px]" value="0x1015e2E...6AD26FB9" readonly />
-              <img class="absolute -translate-y-1/2 top-1/2 right-[18px] w-[28px] h-[28px] object-contain object-center" src="~/assets/img/icons/phantom.svg" alt="" />
+              <input type="text" class="form-input w-full bg-[#F3F9F9] border-[#F3F9F9] pr-[50px]" :value="originAddress" readonly />
+              <img class="absolute -translate-y-1/2 top-1/2 right-[18px] w-[28px] h-[28px] object-contain object-center" :src="chainsCfg.origin.icon" alt="" />
+            </div>
+            <div class="mt-[14px] sm:mt-4">
+              <button
+                class="btn btn-outline-solana2 btn-block sm:h-auto sm:w-auto sm:inline-block underline hover:no-underline sm:leading-none sm:bg-none sm:hover:text-magenta"
+                @click="connectWallet = !connectWallet"
+              >
+                Change wallet
+              </button>
             </div>
           </div>
-
           <div class="sm:flex-1 sm:px-[10px]">
             <div class="mb-[10px] text-[13px]">
               <div class="font-semibold">To address</div>
             </div>
-            <div class="w-full">
-              <input type="text" class="form-input w-full" value="3PAAS...SRktwPaw" readonly />
+            <div class="w-full relative">
+              <input type="text" class="form-input w-full bg-[#F3F9F9] border-[#F3F9F9] pr-[50px]" :value="dstAddress" readonly />
+              <img class="absolute -translate-y-1/2 top-1/2 right-[18px] w-[28px] h-[28px] object-contain object-center" :src="chainsCfg.dst.icon" alt="" />
+            </div>
+
+            <div class="mt-[14px] sm:mt-4">
+              <button
+                class="btn btn-outline-solana2 btn-block sm:h-auto sm:w-auto sm:inline-block underline hover:no-underline sm:leading-none sm:bg-none sm:hover:text-magenta"
+                @click="connectWallet = !connectWallet"
+              >
+                Change wallet
+              </button>
             </div>
           </div>
         </div>
 
-        <div class="mt-[14px] sm:mt-4">
-          <button
-            class="btn btn-outline-solana2 btn-block sm:h-auto sm:w-auto sm:inline-block underline hover:no-underline sm:leading-none sm:bg-none sm:hover:text-magenta"
-            @click="connectWallet = !connectWallet"
-          >
-            Change wallet
-          </button>
-        </div>
         <div class="mt-[24px] mb-[34px] bg-[#BDDBDF] h-[1px] w-full hidden sm:block"></div>
       </template>
       <template v-else>
@@ -223,22 +232,119 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
+import { isNil } from 'lodash-es'
 
-export default Vue.extend({
-  data: () => ({
-    step: '1',
-    amount: '0',
-    item: {
-      img: require('~/assets/img/icons/ray.svg'),
-      label: 'RAY'
+import { AvailableTokens, Token } from '~/logic/chains/token'
+import { Chain } from '~/logic/chains/chain'
+import { WalletProvider } from '~/store/wallet'
+import { Wallet } from '@ethersproject/wallet'
+
+type EnhancedChain = {
+  address?: string
+} & Chain
+
+type ChainsCfg = {
+  origin: EnhancedChain
+  dst: EnhancedChain
+}
+
+type TransferProps = {
+  isDirect: boolean
+  currentToken: Token
+} & ChainsCfg
+
+type State = {
+  transfer: TransferProps
+}
+
+export default Vue.extend<State>({
+  // @ts-ignore
+  data() {
+    return {
+      step: '1',
+      amount: '0',
+      item: {
+        img: require('~/assets/img/icons/ray.svg'),
+        label: 'RAY'
+      },
+      // connectWallet: false,
+      transfer: {
+        isDirect: false,
+        currentToken: AvailableTokens.SUSY,
+        origin: AvailableTokens.SUSY.gateway.origin,
+        dst: AvailableTokens.SUSY.gateway.destination[0]
+      }
+      // originWallet:
+    }
+  },
+  computed: {
+    bothWalletsConnected(): boolean {
+      // @ts-ignore
+      return this.$store.getters['wallet/bothWalletsConnected']
     },
-    connectWallet: false,
-    metamaskConnected: false,
-    phantomConnected: false
-  }),
+    connectWallet(): boolean {
+      // @ts-ignore
+      return this.bothWalletsConnected
+    },
+    isTransferDirect(): boolean {
+      return this.transfer.isDirect
+    },
+    wpsPair(): [WalletProvider, WalletProvider] | null {
+      return this.bothWalletsConnected ? [this.$store.state.wallet.phantom, this.$store.state.wallet.metamask] : null
+    },
+    chainToAddress(): { [x: string]: string } | null {
+      return this.bothWalletsConnected
+        ? {
+            phantom: this.$store.state.wallet.phantom.address,
+            metamask: this.$store.state.wallet.metamask.address
+          }
+        : null
+    },
+    originAddress(): string {
+      return this.chainToAddress[this.chainsCfg.origin.walletProviders[0]]
+    },
+    dstAddress(): string {
+      return this.chainToAddress[this.chainsCfg.dst.walletProviders[0]]
+    },
+    chainsCfg(): ChainsCfg {
+      const { origin, dst } = this.transfer
+
+      // if (!isNil(this.addressPair)) {
+      //   const populate = (ch: EnhancedChain, addresses: [string, string], prs: [WalletProvider, WalletProvider]) => {
+      //     if (chainSupportsProvider(ch, prs)) {
+      //       return addresses[0]
+      //     } else {
+      //       return addresses[1]
+      //     }
+      //   }
+
+      //   origin.address = populate(origin, this.addressPair, this.wpsPair)
+      //   dst.address = populate(dst, this.addressPair, this.wpsPair)
+      // }
+
+      const directed = () => {
+        if (this.isTransferDirect) {
+          return {
+            origin: dst,
+            dst: origin
+          }
+        }
+
+        return { origin, dst }
+      }
+
+      return directed()
+    }
+  },
+  mounted() {
+    console.log({ store: this.$store })
+  },
   methods: {
+    inverseTransferDirection() {
+      this.transfer.isDirect = !this.transfer.isDirect
+    },
     handleTransfer() {
       // Deep copy object
       const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].transaction))
@@ -270,7 +376,7 @@ export default Vue.extend({
       // Deep copy object
       const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].selectToken))
 
-      modal.data.callbackSelectToken = (item) => {
+      modal.data.callbackSelectToken = (item: any) => {
         this.item = item
         this.$store.commit('app/CLOSE_MODAL')
       }

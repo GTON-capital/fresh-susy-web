@@ -22,7 +22,7 @@
           </div>
 
           <div class="mb-[5px] sm:mb-0 sm:flex-initial sm:px-[9px] flex items-end justify-end">
-            <div @click="inverseTransferDirection" class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-field flex items-center justify-center bg-white">
+            <div class="ring-[#BDDBDF] ring-inset ring-1 rounded-full w-[28px] h-[28px] sm:w-[42px] sm:h-field flex items-center justify-center bg-white" @click="inverseTransferDirection">
               <icon name="mono/arrow-fold" class="fill-current text-desaturated-cyan text-[12px] rotate-90 sm:rotate-0" />
             </div>
           </div>
@@ -232,27 +232,64 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import axios from 'axios'
+import { Subject, Subscription } from 'rxjs'
 
+import { PublicKey } from '@solana/web3.js'
 import { AvailableTokens, Token } from '~/logic/chains/token'
 import { Chain } from '~/logic/chains/chain'
-import { WalletProvider } from '~/store/wallet'
+import { ExtensionWallet, WalletProvider, walletSupportsSolana } from '~/store/wallet'
+import { buildPropertyChecker } from '~/logic/wallets/checker'
+
+// import { SwapError } from '~/logic/form/swap'
+
+import { Ports } from '~/logic/services/solana/instruction'
+import { PhantomWalletAdapter } from '~/logic/wallet-adapters'
+import { Web3Invoker } from '~/logic/wallets/web3'
+
+type WalletProps = {
+  address: string
+  currentBalance: number
+  formattedBalance: string
+}
 
 type EnhancedChain = {
   address?: string
 } & Chain
 
-type ChainsCfg = {
-  origin: EnhancedChain
-  dst: EnhancedChain
+type ChainWrappedEntity<T, I = T> = {
+  origin: T
+  dst: I
 }
+
+function buildChainWrappedEntity<T>(origin: T, dst: T): ChainWrappedEntity<T> {
+  return {
+    origin,
+    dst
+  }
+}
+
+type ChainsCfg = ChainWrappedEntity<EnhancedChain>
 
 type TransferProps = {
   isDirect: boolean
   currentToken: Token
+  amount: number
 } & ChainsCfg
+
+type RealtimeProps = {
+  chainsToAddress: {
+    phantom: string | null
+    metamask: string | null
+  }
+}
 
 type State = {
   transfer: TransferProps
+  realtime: RealtimeProps
+  walletProps: Subject<number>
+  subs: Subscription[]
+  currentBalance: number
 }
 
 export default Vue.extend<State>({
@@ -270,9 +307,18 @@ export default Vue.extend<State>({
         isDirect: false,
         currentToken: AvailableTokens.SUSY,
         origin: AvailableTokens.SUSY.gateway.origin,
-        dst: AvailableTokens.SUSY.gateway.destination[0]
+        dst: AvailableTokens.SUSY.gateway.destination[0],
+        amount: 0
+      },
+      currentBalance: 0,
+      subs: [],
+      walletProps: null,
+      realtime: {
+        chainsToAddress: {
+          phantom: null,
+          metamask: null
+        }
       }
-      // originWallet:
     }
   },
   computed: {
@@ -293,8 +339,8 @@ export default Vue.extend<State>({
     chainToAddress(): { [x: string]: string } | null {
       return this.bothWalletsConnected
         ? {
-            phantom: this.$store.state.wallet.phantom.address,
-            metamask: this.$store.state.wallet.metamask.address
+            phantom: this.realtime.chainsToAddress.phantom ?? this.$store.state.wallet.phantom.address,
+            metamask: this.realtime.chainsToAddress.metamask ?? this.$store.state.wallet.metamask.address
           }
         : null
     },
@@ -303,6 +349,20 @@ export default Vue.extend<State>({
     },
     dstAddress(): string {
       return this.chainToAddress[this.chainsCfg.dst.walletProviders[0]]
+    },
+    originWallet(): ExtensionWallet | null {
+      if (!this.bothWalletsConnected) {
+        return null
+      }
+
+      return this.$store.state.wallet[this.chainsCfg.origin.walletProviders[0]]
+    },
+    dstWallet(): ExtensionWallet | null {
+      if (!this.bothWalletsConnected) {
+        return null
+      }
+
+      return this.$store.state.wallet[this.chainsCfg.dst.walletProviders[0]]
     },
     chainsCfg(): ChainsCfg {
       const { origin, dst } = this.transfer
@@ -322,7 +382,25 @@ export default Vue.extend<State>({
     }
   },
   mounted() {
-    console.log({ store: this.$store })
+    // @ts-ignore
+    this.propertiesObs = buildPropertyChecker(1800, this.observeBothWallets)
+
+    // @ts-ignore
+    const sub = this.propertiesObs.subscribe(async (walletData: Promise<ChainWrappedEntity<Partial<WalletProps>>>) => {
+      const result = await walletData
+
+      // this.currentBalance = result.origin.currentBalance!
+      console.log(JSON.stringify(result, null, 2))
+      // this.
+    })
+
+    // @ts-ignore
+    this.subs.push(sub)
+  },
+  beforeDestroy() {
+    for (const sub of this.subs) {
+      sub.unsubscribe()
+    }
   },
   methods: {
     inverseTransferDirection() {
@@ -355,6 +433,126 @@ export default Vue.extend<State>({
         }, 1000)
       }, 1500)
     },
+    async observeBothWallets(): Promise<ChainWrappedEntity<Partial<WalletProps>>> {
+      if (!this.bothWalletsConnected) {
+        return new Promise((resolve) => resolve(buildChainWrappedEntity({}, {})))
+      }
+
+      const { originWallet, dstWallet } = this
+
+      const originProps = await this.observeWallet(originWallet)
+      const dstProps = await this.observeWallet(dstWallet)
+
+      return buildChainWrappedEntity(originProps, dstProps)
+    },
+    async observeWallet(currentWallet: ExtensionWallet): Promise<Partial<WalletProps>> {
+      // if (this.formErrors !== null && this.formErrors.message !== SwapError.InsufficientBalance.message) {
+      //   return {}
+      // }
+
+      // const currentWallet = this.wallet
+      // return {}
+
+      if (walletSupportsSolana(currentWallet.provider as WalletProvider)) {
+        const address = currentWallet.address!.slice()
+
+        const emptyResult: WalletProps = {
+          address: address!,
+          currentBalance: 0,
+          formattedBalance: ''
+        }
+
+        // const currentBridge = this.pickBridgeGateway()!
+        const walletAdapter = this.$store.state.wallet.phantom.walletAdapter!
+        const { TOKEN_MINT } = this.transfer.currentToken.meta
+
+        const invoker = new Ports.Invoker(
+          walletAdapter,
+          {
+            initializer: walletAdapter.publicKey,
+            portProgram: new PublicKey(TOKEN_MINT),
+            portDataAccount: new PublicKey(TOKEN_MINT),
+            tokenProgramAccount: new PublicKey(TOKEN_MINT),
+            tokenOwner: new PublicKey(TOKEN_MINT)
+          },
+          'https://api.mainnet-beta.solana.com'
+        )
+
+        const memorizedAccount = await invoker.getExistingTokenAccount(new PublicKey(TOKEN_MINT))
+
+        if (!memorizedAccount) {
+          return emptyResult
+        }
+
+        const response = await axios.post('https://api.mainnet-beta.solana.com', {
+          jsonrpc: '2.0',
+          id: 1,
+          method: 'getTokenAccountBalance',
+          params: [memorizedAccount.toBase58()]
+        })
+
+        const result: {
+          jsonrpc: string
+          result: {
+            context: {
+              slot: number
+            }
+            value: {
+              amount: string
+              decimals: number
+              uiAmount: number
+              uiAmountString: string
+            }
+          }
+          id: number
+        } = response.data
+
+        try {
+          return {
+            address: address!,
+            currentBalance: Number(result.result.value.amount),
+            formattedBalance: String(result.result.value.uiAmount)
+          }
+        } catch (err) {
+          console.log({ err })
+          return emptyResult
+        }
+      }
+
+      if (currentWallet.provider === WalletProvider.Metamask) {
+        try {
+          // const currentWalletAddress = window.web3.eth.accounts.givenProvider.selectedAddress
+          // // window.web3.eth.accounts.givenProvider.
+          // console.log({ currentWalletAddress })
+          const address = this.dstAddress
+          const invoker = new Web3Invoker()
+
+          const { ERC20Address } = this.transfer.currentToken.meta
+
+          console.log({ ERC20Address })
+
+          // console.log({ currentWalletAddress, assetId })
+          let { balance } = await invoker.getBalanceOf(address, ERC20Address)
+
+          balance = Number(balance)
+          // console.log({ balance }, this.swapForm.token.decimals)
+
+          return {
+            address,
+            currentBalance: balance,
+            formattedBalance: String(balance / Math.pow(10, 18)).slice(0, 12)
+          }
+        } catch (err) {
+          console.log(err)
+          return {}
+        }
+      }
+
+      return {}
+    },
+    // async propertyObserveMap(): Promise<ChainWrappedEntity<Partial<WalletProps>>> {
+    //   const
+    // },
     handleSelectToken() {
       // Deep copy object
       const modal = JSON.parse(JSON.stringify(this.$store.getters['app/exampleModals'].selectToken))

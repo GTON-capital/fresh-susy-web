@@ -63,7 +63,7 @@ export class MultichainGateway {
   }
 
   // consumeDirection(from: Chain, to: Chain) {
-    
+
   // }
 }
 
@@ -73,6 +73,9 @@ export type Token = {
   icon: string
   bg: string
   gateway: MultichainGateway
+  meta: {
+    [x: string]: any
+  }
 }
 
 export const AvailableTokens: Record<string, Token> = {
@@ -84,7 +87,11 @@ export const AvailableTokens: Record<string, Token> = {
     gateway: new MultichainGateway({
       origin: AvailableChains.Solana,
       destination: [AvailableChains.BSC, AvailableChains.Fantom, AvailableChains.Polygon]
-    })
+    }),
+    meta: {
+      TOKEN_MINT: "4hJ6sjwmsvvFag6TKL97yhWiBSDX9BABWoiXgb3EPXxB",
+      ERC20Address: "0x01e0e2e61f554ecaaec0cc933e739ad90f24a86d"
+    }
   }
 }
 

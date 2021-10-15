@@ -2,7 +2,7 @@ const mainTitle = "SuSy - Seamless multichain transfers";
 
 const shortDescription = "SuSy is a multichain bridge leveraging the Wormhole protocol.";
 
-const url = "https://mesh.susy.one";
+const url = "https://v2.susy.one";
 
 const previewImagePath = url+"/preview.jpg";
 

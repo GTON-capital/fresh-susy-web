@@ -95,7 +95,7 @@ export default Vue.extend({
         }
         if (this.includeFooter && this.syncFooterScroll) {
           const f = this.$refs.tfoot as HTMLElement
-          f.style
+          // f.style
           if (f.scrollLeft !== l) {
             f.scrollLeft = l
           }

@@ -12,7 +12,7 @@
         EVM chains bridge
       </div>
 
-      <a href="/" class="btn btn-landing w-full sm:w-[232px] rounded-full">
+      <a href="https://susy.one" target="_blank" class="btn btn-landing w-full sm:w-[232px] rounded-full">
         Try
       </a>
     </div>

@@ -26,7 +26,7 @@
         $SuSy waitlist
       </div>
 
-      <a href="/" class="btn btn-landing w-full sm:w-[232px] rounded-full">
+      <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdqBB6mqUx-A5Ko5Wcm5kqRGmZwuG_S6mmKPpNpelJByZmDEA/viewform" class="btn btn-landing w-full sm:w-[232px] rounded-full">
         Sign up
       </a>
     </div>

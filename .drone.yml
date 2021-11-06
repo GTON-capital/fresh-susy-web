@@ -1,0 +1,34 @@
+kind: pipeline
+type: docker
+name: susy-web
+
+
+pipeline:
+  publish:
+    image: plugins/docker
+    dockerfile: ./Dockerfile
+    context: .
+    repo: gravityhuborg/susy-web
+    tags: ["latest", "main"]
+    secrets: [docker_username,docker_password]
+    when:
+      branch:
+        - master
+
+  deployment:
+    image: appleboy/drone-ssh
+    host: susy.gravityhub.org
+    key:
+      from_secret: password
+    username:
+      from_secret: ssh_username
+    port:
+      from_secret: ssh_port
+    script:
+        - cd /var/www/susy-web && bash rebuild.sh
+
+trigger:
+  branch:
+  - master
+  - add-tests
+  - add-drone

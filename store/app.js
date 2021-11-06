@@ -33,16 +33,16 @@ export const state = () => ({
         href: 'https://susy.one',
         label: 'Launch APP',
       },
-      {
-        href: '/',
-        label: 'Docs',
-      },
+      // {
+      //   href: '/',
+      //   label: 'Docs',
+      // },
     ],
     navigation: [
-      {
-        route: 'logs',
-        label: 'Logs',
-      },
+      // {
+      //   route: 'logs',
+      //   label: 'Logs',
+      // },
       {
         route: 'transfer',
         label: 'Transfer',
@@ -50,29 +50,29 @@ export const state = () => ({
     ],
     partners: [
       {
-        href: '/',
+        href: 'https://graviton.one',
         label: 'Graviton',
       },
       {
-        href: '/',
+        href: 'https://gravity.tech',
         label: 'Gravity',
       },
     ],
     socials: [
       {
-        href: '/',
+        href: 'https://twitter.com/OneSusy1',
         icon: 'mono/twitter',
       },
       {
-        href: '/',
+        href: 'https://medium.com/@OneSusy',
         icon: 'mono/medium',
       },
       {
-        href: '/',
+        href: 'https://github.com/SuSy-One',
         icon: 'mono/github',
       },
       {
-        href: '/',
+        href: 'https://t.me/susybridge_community',
         icon: 'mono/telegram',
       },
     ]

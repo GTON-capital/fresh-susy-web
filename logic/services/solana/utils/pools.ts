@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Account, AccountInfo, Connection, PublicKey, SystemProgram, TransactionInstruction } from "@solana/web3.js"
 import { sendTransaction } from "./connection"
 import { Token, MintLayout, AccountLayout } from "@solana/spl-token"

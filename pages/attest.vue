@@ -201,6 +201,7 @@
 </template>
 
 <script lang="ts">
+// @ts-nocheck
 import Vue from 'vue'
 import detectEthereumProvider from '@metamask/detect-provider'
 // import { isNil } from 'lodash-es'

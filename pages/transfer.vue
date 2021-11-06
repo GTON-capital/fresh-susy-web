@@ -231,6 +231,7 @@
 </template>
 
 <script lang="ts">
+// @ts-nocheck
 import Vue from 'vue'
 import axios from 'axios'
 import { Subject, Subscription } from 'rxjs'

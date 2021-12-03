@@ -29,6 +29,9 @@
         </div>
       </div>
     </div>
+    <div class="container mt-5 text-center">
+      <span class="mb-2 sm:mb-0 px-[11px]">Capital efficient liquidity bridge from Solana to EVM and non-EVM chains &copy;susy.one{{ new Date().getFullYear() }} </span>
+    </div>
   </footer>
 </template>
 

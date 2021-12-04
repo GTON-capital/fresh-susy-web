@@ -3,12 +3,12 @@ export const state = () => ({
     connectWallet: {
       index: '1', // Индекс для перерисовки одного и того же модального окна
       name: 'connect-wallet', // Уникальное название модального окна
-      data: {}, // Данные помещаемые в модальное окно
+      data: {} // Данные помещаемые в модальное окно
     },
     selectToken: {
       index: '1',
       name: 'select-token',
-      data: {},
+      data: {}
     },
     transaction: {
       index: '1',
@@ -17,12 +17,12 @@ export const state = () => ({
         amount: '99',
         item: {
           img: require('~/assets/img/icons/ray.svg'),
-          label: 'RAY',
+          label: 'RAY'
         },
         step1: false,
         step2: false,
-        step3: false,
-      },
+        step3: false
+      }
     }
   },
   modals: [],
@@ -31,8 +31,8 @@ export const state = () => ({
     landingNavigation: [
       {
         href: 'https://susy.one',
-        label: 'Launch APP',
-      },
+        label: 'Launch APP'
+      }
       // {
       //   href: '/',
       //   label: 'Docs',
@@ -45,61 +45,65 @@ export const state = () => ({
       // },
       {
         route: 'transfer',
-        label: 'Transfer',
-      },
+        label: 'Transfer'
+      }
     ],
     partners: [
       {
         href: 'https://graviton.one',
-        label: 'Graviton',
+        label: 'Graviton'
       },
       {
         href: 'https://gravity.tech',
-        label: 'Gravity',
-      },
+        label: 'Gravity'
+      }
     ],
     socials: [
       {
         href: 'https://twitter.com/OneSusy1',
-        icon: 'mono/twitter',
+        icon: 'mono/twitter'
       },
       {
         href: 'https://medium.com/@OneSusy',
-        icon: 'mono/medium',
+        icon: 'mono/medium'
       },
       {
         href: 'https://github.com/SuSy-One',
-        icon: 'mono/github',
+        icon: 'mono/github'
       },
       {
         href: 'https://t.me/susybridge_community',
-        icon: 'mono/telegram',
+        icon: 'mono/telegram'
       },
+      {
+        href: 'https://discord.gg/jM3y9TYR',
+        icon: 'mono/discord'
+      }
     ]
-  },
+  }
 })
 
 export const mutations = {
   TOGGLE_MENU(state) {
-    state.menu.open = !state.menu.open;
+    state.menu.open = !state.menu.open
   },
   PUSH_MODAL(state, modal) {
-    state.modals.push(modal);
+    state.modals.push(modal)
   },
   PUSH_MODALS(state, modals) {
-    state.modals = [...state.modals, ...modals];
+    state.modals = [...state.modals, ...modals]
   },
   CLOSE_ALL_MODALS(state) {
-    state.modals = [];
+    state.modals = []
   },
   CLOSE_MODAL(state) {
-    state.modals.pop();
+    state.modals.pop()
   },
-  SET_DATA_MODAL(state, {name, index, data}) {
-    const modals = state.modals;
+  SET_DATA_MODAL(state, { name, index, data }) {
+    const modals = state.modals
     for (let i = 0; i < modals.length; i++) {
       const modal = modals[i]
-      if(modal.name === name && modal.index === index){
+      if (modal.name === name && modal.index === index) {
         modal.data = data
       }
     }
@@ -109,5 +113,5 @@ export const mutations = {
 export const getters = {
   exampleModals: (state) => state.exampleModals,
   modals: (state) => state.modals,
-  menu: (state) => state.menu,
+  menu: (state) => state.menu
 }

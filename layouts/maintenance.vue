@@ -1,13 +1,13 @@
 <template>
   <div class="min-h-screen font-sans bg-body relative flex flex-col text-maastricht-blue">
-    <landing-vue-header />
+    <!-- <landing-vue-header /> -->
     <mobile-menu is-landing />
 
     <main class="flex-grow relative z-[1]">
       <nuxt />
     </main>
 
-    <landing-vue-footer />
+    <!-- <landing-vue-footer /> -->
   </div>
 </template>
 

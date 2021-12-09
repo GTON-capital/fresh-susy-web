@@ -2,8 +2,8 @@
 
 branch="$1"
 image_tag='main'
-organization='gravityhuborg'
-image_name='fresh-susy-web'
+organization='susyone'
+image_name='susy-web'
 
 port=3006
 
@@ -17,6 +17,5 @@ docker pull "$image_name"
 
 docker stop "$current_id"
 docker rm "$current_id"
-
 # shellcheck disable=SC2154
 docker run -itd -p "$port":80 --name "$name" "$image_name"

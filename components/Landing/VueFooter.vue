@@ -5,7 +5,7 @@
 
       <div class="flex flex-col xl:flex-row">
         <div class="mb-2 sm:mb-0 px-[31px]">
-          <a href="https://susy.one" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5">
+          <a href="https://v2.susy.one" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5">
             Launch APP
           </a>
         </div>

@@ -30,7 +30,7 @@ export const state = () => ({
     open: false,
     landingNavigation: [
       {
-        href: 'https://susy.one',
+        href: 'https://v2.susy.one',
         label: 'Launch APP'
       },
       {

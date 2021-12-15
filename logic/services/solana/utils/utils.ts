@@ -66,6 +66,7 @@ export function isKnownMint(map: KnownTokenMap, mintAddress: string) {
 export const STABLE_COINS = new Set(["USDC", "wUSDC", "USDT", "wUSDT", "WUSDT"])
 
 export function chunks<T>(array: T[], size: number): T[][] {
+  // @ts-ignore
   return Array.apply<number, T[], T[][]>(0, new Array(Math.ceil(array.length / size))).map((_, index) => array.slice(index * size, (index + 1) * size))
 }
 

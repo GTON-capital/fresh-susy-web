@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Context, SignatureResult } from '@solana/web3.js';
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 

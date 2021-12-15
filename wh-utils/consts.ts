@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ChainId, CHAIN_ID_BSC, CHAIN_ID_ETH, CHAIN_ID_SOLANA, CHAIN_ID_TERRA } from '@certusone/wormhole-sdk'
 import { clusterApiUrl } from '@solana/web3.js'
 import { getAddress } from 'ethers/lib/utils'

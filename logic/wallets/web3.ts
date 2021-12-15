@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Web3 from 'web3'
 import { ERC20ABI } from '~/logic/abi/erc20'
 

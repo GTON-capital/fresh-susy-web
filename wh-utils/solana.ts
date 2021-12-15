@@ -68,6 +68,7 @@ export const getMultipleAccounts = async (
 };
 
 export function chunks<T>(array: T[], size: number): T[][] {
+  // @ts-ignore
   return Array.apply<number, T[], T[][]>(
     0,
     new Array(Math.ceil(array.length / size))

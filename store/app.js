@@ -30,19 +30,19 @@ export const state = () => ({
     open: false,
     landingNavigation: [
       {
-        href: 'https://susy.one',
+        href: 'https://v2.susy.one',
         label: 'Launch APP'
+      },
+      {
+        href: '/',
+        label: 'Docs'
       }
-      // {
-      //   href: '/',
-      //   label: 'Docs',
-      // },
     ],
     navigation: [
-      // {
-      //   route: 'logs',
-      //   label: 'Logs',
-      // },
+      {
+        route: 'logs',
+        label: 'Logs'
+      },
       {
         route: 'transfer',
         label: 'Transfer'

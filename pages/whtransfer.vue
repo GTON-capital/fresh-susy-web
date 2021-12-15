@@ -96,7 +96,7 @@
         </div> -->
       </div>
 
-      <button class="btn btn-solana2 btn-block mt-[34px]" @click="handleAttest">Attest</button>
+      <button class="btn btn-solana2 btn-block mt-[34px]" @click="handleAttest">Transfer</button>
     </div>
     <div
       v-if="step === '2'"
@@ -202,11 +202,12 @@
 
 <script lang="ts">
 // @ts-nocheck
+
 import Vue from 'vue'
 import detectEthereumProvider from '@metamask/detect-provider'
 // import { isNil } from 'lodash-es'
 
-import { attestFromSolana, CHAIN_ID_SOLANA, createWrappedOnEth, getEmitterAddressSolana, getSignedVAA, parseSequenceFromLogSolana } from '@certusone/wormhole-sdk'
+import { attestFromSolana, CHAIN_ID_ETH, CHAIN_ID_SOLANA, createWrappedOnEth, getEmitterAddressSolana, getSignedVAA, parseSequenceFromLogSolana, redeemOnEth, transferFromSolana } from '@certusone/wormhole-sdk'
 // eslint-disable-next-line import/named
 import { Connection, clusterApiUrl, Commitment } from '@solana/web3.js'
 
@@ -288,7 +289,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    async handleAttest() {
+    async handleTransferSolanaEth() {
       const { form } = this
 
       const network = clusterApiUrl('devnet')
@@ -310,57 +311,38 @@ export default Vue.extend({
       )
       // @ts-ignore
       const signer = provider.getSigner()
-
+      
       try {
-        // const transaction = await attestFromSolana(connection, form.solBridgeAddress, form.solTokenBridgeAddress, payerAddress, mintAddress)
-        const transaction = await attestFromSolana(connection, form.solBridgeAddress, form.solTokenBridgeAddress, form.payerAddress!, form.tokenMint!)
+
+        const transaction = await transferFromSolana(
+          connection,
+          SOL_BRIDGE_ADDRESS,
+          SOL_TOKEN_BRIDGE_ADDRESS,
+          payerAddress,
+          fromAddress,
+          mintAddress,
+          amount,
+          targetAddress,
+          CHAIN_ID_ETH,
+          originAddress,
+          originChain
+        )
         const signed = await wallet.signTransaction(transaction)
         const txid = await connection.sendRawTransaction(signed.serialize())
-
-        const solanaAttestRes = await connection.confirmTransaction(txid)
-        console.log({ solanaAttestRes })
+        await connection.confirmTransaction(txid)
         // Get the sequence number and emitter address required to fetch the signedVAA of our message
         const info = await connection.getTransaction(txid)
         const sequence = parseSequenceFromLogSolana(info!)
+        const emitterAddress = await getEmitterAddressSolana(SOL_TOKEN_BRIDGE_ADDRESS)
+        // Fetch the signedVAA from the Wormhole Network (this may require retries while you wait for confirmation)
+        const { signedVAA } = await getSignedVAA(WORMHOLE_RPC_HOST, CHAIN_ID_SOLANA, emitterAddress, sequence)
+        // Redeem on Ethereum
+        await redeemOnEth(ETH_TOKEN_BRIDGE_ADDRESS, signer, signedVAA)
 
-        const emitterAddress = await getEmitterAddressSolana(form.solTokenBridgeAddress)
-
-        // const { signedVAA } = await getSignedVAA(WORMHOLE_RPC_HOST, CHAIN_ID_SOLANA, emitterAddress, sequence)
-        const { signedVAA } = await getSignedVAA(form.wormholeRPC, CHAIN_ID_SOLANA, emitterAddress, sequence)
-        console.log({ signedVAA, emitterAddress })
-        // Create the wrapped token on Ethereum
-        // await createWrappedOnEth(ETH_TOKEN_BRIDGE_ADDRESS, signer, signedVAA)
-        const resp = await createWrappedOnEth(form.ethTokenBridgeAddress, signer, signedVAA)
-        console.log({ resp })
-
-        console.log('attest passed')
+        console.log('transfer finished successfully')
       } catch (err) {
-        console.log({ err })
-        console.log('attest failed')
+        console.log('transfer failed', err)
       }
-    },
-    handleTransfer() {
-      //   // Deep copy object
-      //   const modal = JSON.parse(JSON.stringify(this.$store.getters["app/exampleModals"].transaction));
-      //   this.$store.commit('app/PUSH_MODAL', modal)
-      //   setTimeout(() => {
-      //     const data = JSON.parse(JSON.stringify(modal.data));
-      //     data.step1 = true;
-      //     this.$store.commit('app/SET_DATA_MODAL', {name: modal.name, index: modal.index, data})
-      //     setTimeout(() => {
-      //       const data = JSON.parse(JSON.stringify(modal.data));
-      //       data.step1 = true;
-      //       data.step2 = true;
-      //       this.$store.commit('app/SET_DATA_MODAL', {name: modal.name, index: modal.index, data})
-      //       setTimeout(() => {
-      //         const data = JSON.parse(JSON.stringify(modal.data));
-      //         data.step1 = true;
-      //         data.step2 = true;
-      //         data.step3 = true;
-      //         this.$store.commit('app/SET_DATA_MODAL', {name: modal.name, index: modal.index, data})
-      //       }, 500)
-      //     }, 1000)
-      //   }, 1500)
     },
     handleSelectToken() {
       // Deep copy object

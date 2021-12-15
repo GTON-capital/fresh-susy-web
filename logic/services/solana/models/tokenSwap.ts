@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Numberu64 } from "@solana/spl-token-swap"
 import { PublicKey, Account, TransactionInstruction } from "@solana/web3.js"
 import * as BufferLayout from "buffer-layout"

@@ -310,6 +310,7 @@ export async function swap(
   if (fromCoinMint === NATIVE_SOL.mintAddress) {
     wrappedSolAccount = await createTokenAccountIfNotExist(
       connection,
+      // @ts-ignore
       wrappedSolAccount,
       owner,
       TOKENS.WSOL.mintAddress,
@@ -321,6 +322,7 @@ export async function swap(
   if (toCoinMint === NATIVE_SOL.mintAddress) {
     wrappedSolAccount2 = await createTokenAccountIfNotExist(
       connection,
+      // @ts-ignore
       wrappedSolAccount2,
       owner,
       TOKENS.WSOL.mintAddress,
@@ -437,8 +439,10 @@ export async function place(
     }
     lamports = Math.max(lamports, 0) + 1e7
 
+    // @ts-ignore
     wrappedSolAccount = await createTokenAccountIfNotExist(
       connection,
+      // @ts-ignore
       wrappedSolAccount,
       owner,
       TOKENS.WSOL.mintAddress,

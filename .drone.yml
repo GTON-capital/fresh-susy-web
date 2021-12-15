@@ -9,7 +9,7 @@ pipeline:
     dockerfile: ./Dockerfile
     context: .
     repo: susyone/susy-web
-    tags: ["latest", "main"]
+    tags: ["latest", "master", "main"]
     secrets: [docker_username,docker_password]
 
   deployment:

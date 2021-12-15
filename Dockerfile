@@ -1,8 +1,8 @@
-FROM node:13-alpine as fresh-susy-web
+FROM node:13-alpine as susy
 
-WORKDIR /
+WORKDIR /susy
 
-COPY . /
+COPY . /susy
 
 RUN apk update && apk upgrade && apk add --no-cache bash git openssh \
     && rm -rf /var/cache/apk/* \
@@ -12,7 +12,7 @@ RUN apk update && apk upgrade && apk add --no-cache bash git openssh \
     && npm run generate
 
 FROM nginx:stable-alpine as nginx
-COPY --from=fresh-susy-web /dist /usr/share/nginx/html
+COPY --from=susy /susy/dist /usr/share/nginx/html
 RUN mkdir -p /etc/nginx/sites-enabled
 
 RUN chmod -R 0777 /usr/share/nginx/html

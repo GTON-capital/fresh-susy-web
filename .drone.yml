@@ -11,9 +11,6 @@ pipeline:
     repo: susyone/susy-web
     tags: ["latest", "main"]
     secrets: [docker_username,docker_password]
-    when:
-      branch:
-        - master
 
   deployment:
     image: appleboy/drone-ssh
@@ -26,9 +23,11 @@ pipeline:
       from_secret: ssh_port
     script:
         - cd /var/www/fresh-susy-web && bash rebuild.sh
+    when:
+      branch:
+        - master
 
 trigger:
   branch:
   - master
-  - add-tests
-  - add-drone
+  - feature/ci

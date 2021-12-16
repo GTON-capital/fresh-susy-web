@@ -34,7 +34,7 @@ export const state = () => ({
         label: 'Launch APP'
       },
       {
-        href: '/',
+        href: 'https://docs.susy.one/',
         label: 'Docs'
       }
     ],
@@ -52,10 +52,6 @@ export const state = () => ({
       {
         href: 'https://graviton.one',
         label: 'Graviton'
-      },
-      {
-        href: 'https://gravity.tech',
-        label: 'Gravity'
       }
     ],
     socials: [

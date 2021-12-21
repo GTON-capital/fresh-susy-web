@@ -72,7 +72,7 @@ export const state = () => ({
         icon: 'mono/telegram'
       },
       {
-        href: 'https://discord.gg/jM3y9TYR',
+        href: 'https://discord.gg/jWnqNDZK4Y',
         icon: 'mono/discord'
       }
     ]

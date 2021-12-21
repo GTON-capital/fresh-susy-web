@@ -1,7 +1,6 @@
-
 const mainTitle = () => 'SuSy - Seamless multichain transfers'
 
-const shortDescription = () => 'SuSy is a multichain bridge leveraging the Wormhole protocol.'
+const shortDescription = () => 'Capital efficient liquidity bridge from Solana to EVM and non-EVM chains'
 
 const url = 'https://v2.susy.one'
 
@@ -104,7 +103,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/facebook.js', mode: 'client' },
-    { src: '~/plugins/gtag.ts', mode: 'client' },
+    { src: '~/plugins/gtag.ts', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

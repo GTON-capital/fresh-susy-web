@@ -6,7 +6,7 @@
     <div class="container flex flex-col sm:flex-row justify-between items-center font-heading whitespace-nowrap text-center sm:text-left">
       <div class="flex flex-col xl:flex-row">
         <div class="mb-2 sm:mb-0 md:px-[31px] lg:pl-0">
-          <a href="https://v2.susy.one" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Launch APP </a>
+          <a href="/maintenance" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Launch APP </a>
         </div>
         <div class="mb-2 sm:mb-0 px-[31px]">
           <a href="https://docs.susy.one/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Docs </a>

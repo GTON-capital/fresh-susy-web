@@ -11,22 +11,22 @@
         <div class="mb-2 sm:mb-0 px-[31px]">
           <a href="https://docs.susy.one/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Docs </a>
         </div>
-        <div class="mb-2 sm:mb-0 px-[31px]">
+        <!-- <div class="mb-2 sm:mb-0 px-[31px]">
           <a href="/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Privacy Policy </a>
-        </div>
+        </div> -->
       </div>
       <div class="flex flex-wrap mb-[35px] sm:mb-0 px[-14px] order-first sm:order-none mx-[-25px] sm:mx-0">
         <div v-for="(social, socialKey) in socials" :key="socialKey" class="text-2xl px-[25px] sm:px-[17px]">
-          <social-link :href="social.href" :icon="social.icon" class="text-desaturated-cyan hover:text-magenta" />
+          <social-link :href="social.href" :icon="social.icon" class="text-desaturated-cyan lg:hover:text-magenta" />
         </div>
       </div>
       <div class="flex flex-col xl:flex-row">
         <div class="mb-2 sm:mb-0 px-[31px]">
           <a href="https://mirror.xyz/susy.eth" target="_blank" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Blog </a>
         </div>
-        <div class="mb-2 sm:mb-0 px-[31px]">
+        <!-- <div class="mb-2 sm:mb-0 px-[31px]">
           <a href="/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Terms of Service </a>
-        </div>
+        </div> -->
         <div class="mb-2 sm:mb-0 md:px-[31px] lg:pr-0">
           <a href="mailto:info@susy.one" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> info@susy.one </a>
         </div>

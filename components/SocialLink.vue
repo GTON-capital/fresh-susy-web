@@ -1,6 +1,6 @@
 <template>
   <a :href="href" target="_blank" class="inline-block">
-    <icon :name="icon" class="fill-current stroke-current" :class="{ 'scale-150': icon === 'mono/medium' }" />
+    <icon :name="icon" class="fill-current stroke-current sm:fill-inherit" :class="{ 'scale-150': icon === 'mono/medium' }" />
   </a>
 </template>
 

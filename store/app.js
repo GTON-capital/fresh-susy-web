@@ -30,7 +30,7 @@ export const state = () => ({
     open: false,
     landingNavigation: [
       {
-        href: 'https://v2.susy.one',
+        href: '/maintenance',
         label: 'Launch APP'
       },
       {
@@ -59,16 +59,16 @@ export const state = () => ({
         href: 'https://twitter.com/OneSusy1',
         icon: 'mono/twitter'
       },
-      {
-        href: 'https://medium.com/@OneSusy',
-        icon: 'mono/medium'
-      },
+      // {
+      //   href: 'https://medium.com/@OneSusy',
+      //   icon: 'mono/medium'
+      // },
       {
         href: 'https://github.com/SuSy-One',
         icon: 'mono/github'
       },
       {
-        href: 'https://t.me/susybridge_community',
+        href: 'https://t.me/susy_community',
         icon: 'mono/telegram'
       },
       {

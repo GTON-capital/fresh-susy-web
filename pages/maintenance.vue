@@ -3,12 +3,9 @@
     <div class="relative mt-[-40px] lg:pt-[200px] mt-[50px] mb-[50px] md:mb-[110px]">
       <div class="font-heading font-bold italic leading-none -mb-4">
         <div class="mt-[-60px] mb-[20px] font-medium text-[28px] md:text-[28px] w-[50%]">
-          <div class="leading-[82px] text-magenta font-heading italic text-[28px] md:text-[75px]">SuSy Solana-BSC bridge is suspended </div>
+          <div class="leading-[82px] text-magenta font-heading italic text-[28px] md:text-[75px]">SuSy Solana-BSC bridge is suspended</div>
           <br />
-          <span class="leading-[52px]">
-            Due to testing integrations of new networks into SuSy, we have temporarily suspended the Solana-BSC bridge. We will let you when the bridge services are up and running again.
-            Thank you for your patience.</span
-          >
+          <span class="leading-[52px]"> Due to testing integrations of new networks into SuSy, we have temporarily suspended the Solana-BSC bridge.</span>
         </div>
       </div>
 

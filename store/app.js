@@ -33,10 +33,10 @@ export const state = () => ({
       //   href: '/maintenance',
       //   label: 'Launch APP'
       // },
-      // {
-      //   href: 'https://docs.susy.one/',
-      //   label: 'Docs'
-      // }
+      {
+        href: 'https://docs.susy.one/',
+        label: 'Docs'
+      }
     ],
     navigation: [
       {

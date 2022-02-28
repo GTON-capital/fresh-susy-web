@@ -12,7 +12,7 @@
 
       <div class="bg-[#72979C] h-[1px] w-full sm:hidden my-[13px]"></div>
 
-      <div class="hidden sm:flex flex-row justify-end mx-[-25px] lg:w-[150px]">
+      <div class="hidden flex flex-row justify-end mx-[-25px] lg:w-[150px]">
         <component-link
           v-for="(item, key) in navigation"
           :key="key"
@@ -24,12 +24,14 @@
           {{ item.label }}
         </component-link>
       </div>
-      <div class="w-[50px] hidden sm:block"></div>
+
+      <!--  <div class="w-[50px] hidden sm:block"></div>
       <div class="hidden sm:flex flex-row -mx-5">
         <div v-for="(social, socialKey) in socials" :key="socialKey" class="text-xl px-5">
           <social-link :href="social.href" :icon="social.icon" class="text-desaturated-cyan hover:text-magenta" />
         </div>
-      </div>
+      </div> 
+      -->
     </div>
   </header>
 </template>

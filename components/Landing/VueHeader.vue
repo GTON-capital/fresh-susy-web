@@ -1,5 +1,5 @@
 <template>
-  <header class="flex-shrink-0 py-4 xl:py-[36px]">
+  <header class="flex-shrink-0 py-4 xl:py-[16px]">
     <div class="container block sm:flex flex-row items-center">
       <div class="lg:w-[150px] flex sm:block justify-between mr-auto">
         <nuxt-link to="/" class="text-[46px] sm:text-[76px]">

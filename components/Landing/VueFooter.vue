@@ -18,17 +18,14 @@
           <social-link :href="social.href" :icon="social.icon" class="text-desaturated-cyan lg:hover:text-magenta" />
         </div>
       </div>
-      <div class="flex flex-col xl:flex-row">
-        <!-- <div class="mb-2 sm:mb-0 px-[31px]">
-          <a href="/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Terms of Service </a>
-        </div> -->
+      <div class="flex flex-col xl:flex-row align-center">
         <div class="mb-2 sm:mb-0 md:px-[31px] lg:pr-0">
           <a href="mailto:info@susy.one" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> info@susy.one </a>
         </div>
+        <div class="mb-2 sm:mb-0 md:px-[31px] lg:pr-0">
+          <span class="text-lg text-maastricht-blue"> &copy;susy.one{{ new Date().getFullYear() }} </span>
+        </div>
       </div>
-    </div>
-    <div class="container mt-5 text-left">
-      <span class="mb-2 sm:mb-0"> &copy;susy.one{{ new Date().getFullYear() }} </span>
     </div>
   </footer>
 </template>

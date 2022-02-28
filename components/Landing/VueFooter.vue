@@ -6,14 +6,12 @@
     <div class="container flex flex-col sm:flex-row justify-between items-center font-heading whitespace-nowrap text-center sm:text-left">
       <div class="flex flex-col xl:flex-row">
         <div class="mb-2 sm:mb-0 md:px-[31px] lg:pl-0">
-          <a href="/maintenance" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Launch APP </a>
-        </div>
-        <div class="mb-2 sm:mb-0 px-[31px]">
           <a href="https://docs.susy.one/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Docs </a>
         </div>
-        <!-- <div class="mb-2 sm:mb-0 px-[31px]">
-          <a href="/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Privacy Policy </a>
-        </div> -->
+        <div class="mb-2 sm:mb-0 px-[31px]">
+          <a href="https://mirror.xyz/susy.eth" target="_blank" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Blog </a>
+        </div>
+        <div></div>
       </div>
       <div class="flex flex-wrap mb-[35px] sm:mb-0 px[-14px] order-first sm:order-none mx-[-25px] sm:mx-0">
         <div v-for="(social, socialKey) in socials" :key="socialKey" class="text-2xl px-[25px] sm:px-[17px]">
@@ -21,9 +19,6 @@
         </div>
       </div>
       <div class="flex flex-col xl:flex-row">
-        <div class="mb-2 sm:mb-0 px-[31px]">
-          <a href="https://mirror.xyz/susy.eth" target="_blank" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Blog </a>
-        </div>
         <!-- <div class="mb-2 sm:mb-0 px-[31px]">
           <a href="/" class="text-lg text-maastricht-blue underline hover:no-underline underline-thickness-0.5"> Terms of Service </a>
         </div> -->
@@ -33,7 +28,7 @@
       </div>
     </div>
     <div class="container mt-5 text-left">
-      <span class="mb-2 sm:mb-0">Capital efficient liquidity bridge from Solana to EVM and non-EVM chains &copy;susy.one{{ new Date().getFullYear() }} </span>
+      <span class="mb-2 sm:mb-0"> &copy;susy.one{{ new Date().getFullYear() }} </span>
     </div>
   </footer>
 </template>

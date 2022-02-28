@@ -1,31 +1,35 @@
 <template>
-  <div class="relative mt-[-40px] lg:pt-[200px] mb-[50px] md:mb-[110px]">
+  <div class="sm:flex justify-between items-center relative mt-[-40px] lg:pt-[50px] mb-[50px] md:mb-[110px]">
+    <div class="block">
+      <div class="text-[35vw] sm:text-[250px] font-heading font-bold italic leading-none mb-11">
+        <span class="bg-clip-text text-transparent bg-solana">SuSy</span>
+      </div>
 
-    <div class="text-[35vw] sm:text-[250px] font-heading font-bold italic leading-none -mb-4">
-      <span class="bg-clip-text text-transparent bg-solana">SuSy</span>
+      <div class="font-thin leading-tight text-[15px] sm:text-[20px] mb-4 lg:mb-0 w-full">
+        Decentralized Oracle Network SuSy is a versatile <br />
+        technological environment providing data feeds, <br />
+        oracles and other infrastructure for simple <br />
+        and effortless DeFi-building.
+      </div>
+      <br />
+      <div class="font-thin leading-tight text-[15px] sm:text-[20px] mb-4 lg:mb-0 w-full">
+        Interconnecting and bolstering Solana, Fantom,<br />
+        Polygon, BSC, Ergo and Cardano.
+      </div>
     </div>
+    <div class="block">
+      <picture>
+        <source :srcset="require('~/assets/img/landing/mobile-first-rabbit.svg')" media="(max-width: 540px)" />
+        <source :srcset="require('~/assets/img/landing/first-rabbit.svg')" media="(min-width: 540px)" />
 
-    <picture>
-      <source :srcset="require('~/assets/img/landing/mobile-first-rabbit.svg')"
-              media="(max-width: 1023px)">
-      <source :srcset="require('~/assets/img/landing/first-rabbit.svg')"
-              media="(min-width: 1024px)">
-
-      <img class="md:absolute md:top-[40px] md:left-[70%] md:w-[30%] lg:top-0 xl:-top-14 lg:left-[52%] xl:left-[58%] w-full lg:w-[50%] xl:w-[81%] lg:-translate-x-1/2 pointer-events-none" width="943" height="661" src="~/assets/img/landing/mobile-first-rabbit.svg" alt="">
-
-    </picture>
-
-    <div class="font-medium leading-tight text-[28px] sm:text-[55px] mb-4 lg:mb-0">
-      Seamless <br class="hidden md:block">multichain transfers
+        <img class="pointer-events-none" width="540" height="427" src="~/assets/img/landing/mobile-first-rabbit.svg" alt="" />
+      </picture>
     </div>
-
-    <landing-buy-block class="sm:flex sm:justify-center text-center text-[15px] lg:block lg:fixed lg:right-1/2 lg:translate-x-[30rem] xl:translate-x-[36rem] lg:top-[245px] xl:top-[292px]"/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
-})
+export default Vue.extend({})
 </script>

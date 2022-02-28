@@ -29,10 +29,10 @@ export const state = () => ({
   menu: {
     open: false,
     landingNavigation: [
-      {
-        href: '/maintenance',
-        label: 'Launch APP'
-      },
+      // {
+      //   href: '/maintenance',
+      //   label: 'Launch APP'
+      // },
       {
         href: 'https://docs.susy.one/',
         label: 'Docs'

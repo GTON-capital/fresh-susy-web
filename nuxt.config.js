@@ -1,10 +1,10 @@
-const mainTitle = () => 'Decentralized Oracle Network'
+const mainTitle = 'Decentralized Oracle Network'
 
-const shortDescription = () => ''
+const shortDescription = ''
 
 const url = 'https://v2.susy.one'
 
-const previewImagePath = url + '/preview.png'
+const previewImagePath = url + '/preview.jpg'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -14,7 +14,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: mainTitle(),
+    title: mainTitle,
     htmlAttrs: {
       lang: 'en-US'
     },
@@ -25,10 +25,10 @@ export default {
         content: 'blockchain, crosschain, interchain, oracles, datafeeds, waves, ethereum, bitcoin, gateways, consensus, smartcontract, ride, solidity'
       },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: shortDescription() },
+      { hid: 'description', name: 'description', content: shortDescription },
       { name: 'format-detection', content: 'telephone=no' },
       {
-        content: mainTitle(),
+        content: mainTitle,
         property: 'og:title'
       },
       {

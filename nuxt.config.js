@@ -4,7 +4,7 @@ const shortDescription = ''
 
 const url = 'https://v2.susy.one'
 
-const previewImagePath = url + '/preview.jpg'
+const previewImagePath = url + '/Preview.png'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target

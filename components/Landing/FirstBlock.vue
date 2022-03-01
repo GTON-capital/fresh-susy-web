@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:flex justify-between items-center relative">
+  <div class="sm:flex justify-between items-start relative mt-10">
     <div class="block sm:w-1/2">
       <div class="text-[45px] sm:text-[100px] font-heading font-bold italic leading-none mb-11">
         <span class="bg-clip-text text-transparent bg-solana"
@@ -19,13 +19,8 @@
         Polygon, BSC, Ergo and Cardano.
       </div>
     </div>
-    <div class="block sm:w-1/2">
-      <picture>
-        <source :srcset="require('~/assets/img/landing/mobile-first-rabbit.svg')" media="(max-width: 540px)" />
-        <source :srcset="require('~/assets/img/landing/first-rabbit.svg')" media="(min-width: 740px)" />
-
-        <img class="pointer-events-none" width="540" height="427" src="~/assets/img/landing/mobile-first-rabbit.svg" alt="" />
-      </picture>
+    <div class="flex justify-end sm:w-1/2">
+      <img class="pointer-events-none text-left" width="457" height="481" src="~/assets/img/landing/first-rabbit.svg" alt="logo" />
     </div>
   </div>
 </template>

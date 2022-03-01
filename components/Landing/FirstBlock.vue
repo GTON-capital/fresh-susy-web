@@ -1,14 +1,16 @@
 <template>
   <div class="sm:flex justify-between items-center relative">
     <div class="block sm:w-1/2">
-      <div class="text-[35vw] sm:text-[250px] font-heading font-bold italic leading-none mb-11">
-        <span class="bg-clip-text text-transparent bg-solana">SuSy</span>
+      <div class="text-[30vw] sm:text-[100px] font-heading font-bold italic leading-none mb-11">
+        <span class="bg-clip-text text-transparent bg-solana"
+          >Decentralized <br />
+          Oracle Network</span
+        >
       </div>
 
       <div class="font-thin leading-tight text-[15px] sm:text-[20px] mb-4 lg:mb-0 w-full">
-        Decentralized Oracle Network SuSy is a versatile <br />
-        technological environment providing data feeds, <br />
-        oracles and other infrastructure for simple <br />
+        SuSy is a versatile technological environment providing<br />
+        data feeds, oracles and other infrastructure for simple <br />
         and effortless DeFi-building.
       </div>
       <br />

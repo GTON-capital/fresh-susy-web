@@ -1,10 +1,10 @@
-const mainTitle = () => 'SuSy - Seamless multichain transfers'
+const mainTitle = () => 'Decentralized Oracle Network'
 
-const shortDescription = () => 'Capital efficient liquidity bridge from Solana to EVM and non-EVM chains'
+const shortDescription = () => ''
 
 const url = 'https://v2.susy.one'
 
-const previewImagePath = url + '/preview.jpg'
+const previewImagePath = url + '/preview.png'
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target

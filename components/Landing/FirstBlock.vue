@@ -1,6 +1,6 @@
 <template>
   <div class="sm:flex justify-between items-center relative">
-    <div class="block w-1/2">
+    <div class="block sm:w-1/2">
       <div class="text-[35vw] sm:text-[250px] font-heading font-bold italic leading-none mb-11">
         <span class="bg-clip-text text-transparent bg-solana">SuSy</span>
       </div>
@@ -17,7 +17,7 @@
         Polygon, BSC, Ergo and Cardano.
       </div>
     </div>
-    <div class="block w-1/2">
+    <div class="block sm:w-1/2">
       <picture>
         <source :srcset="require('~/assets/img/landing/mobile-first-rabbit.svg')" media="(max-width: 540px)" />
         <source :srcset="require('~/assets/img/landing/first-rabbit.svg')" media="(min-width: 740px)" />

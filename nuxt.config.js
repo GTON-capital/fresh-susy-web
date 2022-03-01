@@ -2,7 +2,7 @@ const mainTitle = 'Decentralized Oracle Network'
 
 const shortDescription = ''
 
-const url = 'https://v2.susy.one'
+const url = 'https://susy.one'
 
 const previewImagePath = url + '/Preview.png'
 

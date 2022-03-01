@@ -1,7 +1,7 @@
 <template>
   <div class="sm:flex justify-between items-center relative">
     <div class="block sm:w-1/2">
-      <div class="text-[30vw] sm:text-[100px] font-heading font-bold italic leading-none mb-11">
+      <div class="text-[45px] sm:text-[100px] font-heading font-bold italic leading-none mb-11">
         <span class="bg-clip-text text-transparent bg-solana"
           >Decentralized <br />
           Oracle Network</span

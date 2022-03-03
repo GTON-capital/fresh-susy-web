@@ -14,7 +14,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: mainTitle,
+    title: 'SuSy',
     htmlAttrs: {
       lang: 'en-US'
     },

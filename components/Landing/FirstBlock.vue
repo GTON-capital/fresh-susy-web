@@ -2,10 +2,9 @@
   <div class="sm:flex justify-between items-start relative mt-10">
     <div class="block sm:w-1/2">
       <div class="text-[45px] sm:text-[100px] font-heading font-bold italic leading-none mb-11">
-        <span class="bg-clip-text text-transparent bg-solana"
-          >Decentralized <br />
-          Oracle Network</span
-        >
+        <span class="bg-clip-text text-transparent bg-solana">Decentralized </span>
+        <br />
+        <span class="bg-clip-text text-transparent bg-solana"> Oracle Network</span>
       </div>
 
       <div class="font-thin leading-tight text-[15px] sm:text-[20px] mb-4 lg:mb-0 w-full">
